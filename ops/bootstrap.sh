@@ -7,8 +7,6 @@ apt-get install -y python3-venv python3-pip nginx curl snapd openssl
 systemctl enable --now snapd.socket
 snap wait system seed.loaded || true
 snap install aws-cli --classic || true
-snap install amazon-ssm-agent --classic || true
-systemctl enable --now snap.amazon-ssm-agent.amazon-ssm-agent.service || true
 
 id -u 4eyes >/dev/null 2>&1 || useradd --system --home /opt/4eyes --create-home --shell /usr/sbin/nologin 4eyes
 install -d -o 4eyes -g 4eyes /opt/4eyes/releases
@@ -30,29 +28,30 @@ fi
 cat > /usr/local/bin/4eyes-deploy <<'SCRIPT'
 #!/usr/bin/env bash
 set -euo pipefail
-bucket="$${1:?artifact bucket required}"
-sha="$${2:?release sha required}"
-release="/opt/4eyes/releases/$${sha}"
-mkdir -p "$${release}"
-chown -R 4eyes:4eyes "$${release}"
-aws s3 cp "s3://$${bucket}/releases/$${sha}.tgz" "/tmp/4eyes-$${sha}.tgz"
-tar -xzf "/tmp/4eyes-$${sha}.tgz" -C "$${release}"
-python3 -m venv "$${release}/.venv"
-"$${release}/.venv/bin/pip" install --no-cache-dir -r "$${release}/requirements.txt"
-mkdir -p "$${release}/staticfiles"
-cd "$${release}"
-"$${release}/.venv/bin/python" manage.py migrate --noinput
-"$${release}/.venv/bin/python" manage.py collectstatic --noinput
+bucket="${1:?artifact bucket required}"
+sha="${2:?release sha required}"
+release="/opt/4eyes/releases/${sha}"
+mkdir -p "${release}"
+chown -R 4eyes:4eyes "${release}"
+aws_bin=$(command -v aws || echo /snap/bin/aws)
+"${aws_bin}" s3 cp "s3://${bucket}/releases/${sha}.tgz" "/tmp/4eyes-${sha}.tgz"
+tar -xzf "/tmp/4eyes-${sha}.tgz" -C "${release}"
+python3 -m venv "${release}/.venv"
+"${release}/.venv/bin/pip" install --no-cache-dir -r "${release}/requirements.txt"
+mkdir -p "${release}/staticfiles"
+cd "${release}"
+"${release}/.venv/bin/python" manage.py migrate --noinput
+"${release}/.venv/bin/python" manage.py collectstatic --noinput
 public_ip=$(curl -fsS --max-time 2 http://169.254.169.254/latest/meta-data/public-ipv4 || true)
-if [ -n "$${public_ip}" ]; then
-  sed -i "s/^DJANGO_ALLOWED_HOSTS=.*/DJANGO_ALLOWED_HOSTS=$${public_ip},localhost,127.0.0.1/" /etc/4eyes/4eyes.env
+if [ -n "${public_ip}" ]; then
+  sed -i "s/^DJANGO_ALLOWED_HOSTS=.*/DJANGO_ALLOWED_HOSTS=${public_ip},localhost,127.0.0.1/" /etc/4eyes/4eyes.env
 fi
-ln -sfn "$${release}" /opt/4eyes/current
-chown -R 4eyes:4eyes "$${release}"
+ln -sfn "${release}" /opt/4eyes/current
+chown -R 4eyes:4eyes "${release}"
 systemctl daemon-reload
 systemctl enable 4eyes-gunicorn
 systemctl restart 4eyes-gunicorn
-rm -f "/tmp/4eyes-$${sha}.tgz"
+rm -f "/tmp/4eyes-${sha}.tgz"
 SCRIPT
 chmod 0755 /usr/local/bin/4eyes-deploy
 
