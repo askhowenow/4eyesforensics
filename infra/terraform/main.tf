@@ -227,3 +227,9 @@ resource "aws_instance" "web" {
 
   tags = { Name = "4eyes-production-web" }
 }
+
+resource "aws_eip" "web" {
+  domain   = "vpc"
+  instance = aws_instance.web.id
+  tags     = { Name = "4eyes-production-origin" }
+}

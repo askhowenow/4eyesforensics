@@ -3,7 +3,7 @@ output "instance_id" {
 }
 
 output "public_ip" {
-  value = aws_instance.web.public_ip
+  value = aws_eip.web.public_ip
 }
 
 output "artifact_bucket" {
