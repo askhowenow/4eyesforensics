@@ -18,8 +18,8 @@ if [ ! -f /etc/4eyes/4eyes.env ]; then
   cat > /etc/4eyes/4eyes.env <<EOF
 DJANGO_SECRET_KEY=$secret
 DJANGO_DEBUG=False
-DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
-DJANGO_CSRF_TRUSTED_ORIGINS=
+DJANGO_ALLOWED_HOSTS=4eyesforensics.com,www.4eyesforensics.com,localhost,127.0.0.1
+DJANGO_CSRF_TRUSTED_ORIGINS=https://4eyesforensics.com,https://www.4eyesforensics.com
 DJANGO_SECURE_SSL_REDIRECT=False
 EOF
   chown root:4eyes /etc/4eyes/4eyes.env
@@ -43,11 +43,8 @@ mkdir -p "${release}/staticfiles"
 cd "${release}"
 "${release}/.venv/bin/python" manage.py migrate --noinput
 "${release}/.venv/bin/python" manage.py collectstatic --noinput
-metadata_token=$(curl --noproxy '*' -fsS -X PUT --max-time 2 -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" http://169.254.169.254/latest/api/token || true)
-public_ip=$(curl --noproxy '*' -fsS --max-time 2 -H "X-aws-ec2-metadata-token: ${metadata_token}" http://169.254.169.254/latest/meta-data/public-ipv4 || true)
-if [ -n "${public_ip}" ]; then
-  sed -i "s/^DJANGO_ALLOWED_HOSTS=.*/DJANGO_ALLOWED_HOSTS=${public_ip},localhost,127.0.0.1/" /etc/4eyes/4eyes.env
-fi
+sed -i 's/^DJANGO_ALLOWED_HOSTS=.*/DJANGO_ALLOWED_HOSTS=4eyesforensics.com,www.4eyesforensics.com,localhost,127.0.0.1/' /etc/4eyes/4eyes.env
+sed -i 's|^DJANGO_CSRF_TRUSTED_ORIGINS=.*|DJANGO_CSRF_TRUSTED_ORIGINS=https://4eyesforensics.com,https://www.4eyesforensics.com|' /etc/4eyes/4eyes.env
 if ! grep -q '^DJANGO_SECURE_SSL_REDIRECT=' /etc/4eyes/4eyes.env; then
   echo 'DJANGO_SECURE_SSL_REDIRECT=False' >> /etc/4eyes/4eyes.env
 fi
@@ -81,7 +78,7 @@ EOF
 cat > /etc/nginx/sites-available/4eyes <<'EOF'
 server {
     listen 80 default_server;
-    server_name _;
+    server_name 4eyesforensics.com www.4eyesforensics.com;
     server_tokens off;
 
     location /static/ {

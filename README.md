@@ -43,4 +43,4 @@ After Terraform apply, configure these production repository variables for the w
 - `ARTIFACT_BUCKET` — Terraform `artifact_bucket` output
 - `EC2_INSTANCE_ID` — Terraform `instance_id` output
 
-The liveness endpoint is `/api/health/` and returns `{"status":"ok"}` without system details. Cloudflare is intentionally not configured by this project; use the EC2 public IP as the origin until DNS is added manually.
+The production domain is `4eyesforensics.com` (also allowing `www.4eyesforensics.com`). The liveness endpoint is `/api/health/` and returns `{"status":"ok"}` without system details. Cloudflare is intentionally not configured by this project; create the DNS record manually and point it at the stable AWS origin hostname.
