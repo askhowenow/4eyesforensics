@@ -15,6 +15,7 @@ class WebsiteTests(TestCase):
         self.assertContains(response, "tel:+18764546883")
         self.assertContains(response, 'id="scope"')
         self.assertContains(response, "data-quote")
+        self.assertNotContains(response, "<blockquote class=\"quotetext\">")
         self.assertNotContains(response, "__bundler")
         self.assertNotContains(response, "DecompressionStream")
         self.assertNotContains(response, "URL.createObjectURL")
