@@ -3,7 +3,7 @@ set -euo pipefail
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install -y python3-venv python3-pip nginx curl snapd openssl
+apt-get install -y python3-venv python3-pip nginx curl snapd openssl certbot python3-certbot-nginx
 systemctl enable --now snapd.socket
 snap wait system seed.loaded || true
 snap install aws-cli --classic || true
@@ -77,6 +77,7 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 
+if [ ! -f /etc/letsencrypt/live/4eyesforensics.com/fullchain.pem ]; then
 cat > /etc/nginx/sites-available/4eyes <<'EOF'
 server {
     listen 80 default_server;
@@ -98,6 +99,7 @@ server {
     }
 }
 EOF
+fi
 rm -f /etc/nginx/sites-enabled/default
 ln -sfn /etc/nginx/sites-available/4eyes /etc/nginx/sites-enabled/4eyes
 nginx -t
