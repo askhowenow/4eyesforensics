@@ -22,6 +22,7 @@ DJANGO_SECRET_KEY=$secret
 DJANGO_DEBUG=False
 DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
 DJANGO_CSRF_TRUSTED_ORIGINS=
+DJANGO_SECURE_SSL_REDIRECT=False
 EOF
   chown root:4eyes /etc/4eyes/4eyes.env
   chmod 0640 /etc/4eyes/4eyes.env
@@ -43,10 +44,13 @@ mkdir -p "$${release}/staticfiles"
 cd "$${release}"
 "$${release}/.venv/bin/python" manage.py migrate --noinput
 "$${release}/.venv/bin/python" manage.py collectstatic --noinput
-metadata_token=$(curl -fsS -X PUT --max-time 2 -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" http://169.254.169.254/latest/api/token || true)
-public_ip=$(curl -fsS --max-time 2 -H "X-aws-ec2-metadata-token: $${metadata_token}" http://169.254.169.254/latest/meta-data/public-ipv4 || true)
+metadata_token=$(curl --noproxy '*' -fsS -X PUT --max-time 2 -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" http://169.254.169.254/latest/api/token || true)
+public_ip=$(curl --noproxy '*' -fsS --max-time 2 -H "X-aws-ec2-metadata-token: $${metadata_token}" http://169.254.169.254/latest/meta-data/public-ipv4 || true)
 if [ -n "$${public_ip}" ]; then
   sed -i "s/^DJANGO_ALLOWED_HOSTS=.*/DJANGO_ALLOWED_HOSTS=$${public_ip},localhost,127.0.0.1/" /etc/4eyes/4eyes.env
+fi
+if ! grep -q '^DJANGO_SECURE_SSL_REDIRECT=' /etc/4eyes/4eyes.env; then
+  echo 'DJANGO_SECURE_SSL_REDIRECT=False' >> /etc/4eyes/4eyes.env
 fi
 ln -sfn "$${release}" /opt/4eyes/current
 chown -R 4eyes:4eyes "$${release}"
