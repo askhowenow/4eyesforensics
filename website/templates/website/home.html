@@ -1,0 +1,851 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<img id="gifsrc" src="{% static 'website/images/asset-6630f495-48a6-45c2-a79f-2e0d4b14c0d0.gif' %}" alt="" aria-hidden="true" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;left:-9999px">
+
+<header class="bar">
+  <nav class="nav">
+    <span class="brandmark">
+      <button type="button" class="navmark markplay" id="logobtn" aria-label="Play the 4Eyes mark: two routes, one verdict"><img src="{% static 'website/images/asset-31026757-380f-4693-b318-78cc1d87bdd4.png' %}" alt="" width="512" height="512"></button>
+      <span>4EYES <span data-brand-word="">FORENSICS</span></span>
+    </span>
+    <a href="#services">Services</a>
+    <a href="#lifecycle">Lifecycle</a>
+    <a href="#stories">Stories</a>
+    <a href="#pricing">Pricing</a>
+    <button type="button" class="btn btn-secondary" data-auth-open="">Client portal</button>
+    <button type="button" class="btn btn-primary frame" data-jump="contact">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      Report an incident
+    </button>
+  </nav>
+</header>
+
+<section class="steel" data-bg="photo">
+  <div class="steelphoto"><img class="slot-image" src="{% static 'website/images/asset-08701087-d6dc-4e38-a5ad-d8a7fd37724e.jpg' %}" alt="" placeholder="Drop a security-operations photo, SOC floor, analyst wall, dark data hall"><span class="dropnote">Backdrop: drag a security-operations photograph anywhere on this band</span></div>
+  <div class="steelcanvas"><canvas></canvas></div>
+  <div class="steelvideo"><video id="vid-hero" muted="" loop="" playsinline=""></video></div>
+  <div class="wrap hero">
+    <div>
+      <span class="kicker">Information security · backup · recovery</span>
+      <hr class="crule">
+      <h1 class="display"><span class="line">Find the way in.</span> <span class="line">Shut it. Keep</span> <span class="line">a way back.</span></h1>
+      <p class="body">4Eyes <span data-brand-word="">Forensics</span> is one provider for both halves of the job: offensive testing and forensic examiners on call, and immutable backup with rehearsed recovery for the day something still gets through. Named for the four-eyes principle: nothing critical moves on one person's say-so, and nothing we report goes out unverified by a second operator.</p>
+      <div class="row">
+        <button type="button" class="btn btn-primary frame" data-jump="contact">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Book a security &amp; recovery review
+        </button>
+        <button type="button" class="btn btn-secondary" data-jump="evidence">See the evidence pack</button>
+      </div>
+      <div class="termcap">
+        <div><span>01 Recon</span><p><b>38 of 256 hosts live.</b> The real internet-facing estate, not the asset register.</p></div>
+        <div><span>02 Exploit</span><p><b>1 critical, 1 high.</b> A tenant-id bypass in the export API and an unauthenticated staging host.</p></div>
+        <div><span>03 Vault check</span><p><b>Object lock COMPLIANCE, 7 years.</b> Nobody can shorten retention, not us, not an admin.</p></div>
+        <div><span>04 Restore proof</span><p><b>4.2 TiB back in 34m 08s, 0 verify errors.</b> The copy was taken and it comes back.</p></div>
+      </div>
+      <div class="meta">
+        <div><b>15 min</b><span>Recovery point objective</span></div>
+        <div><b>&lt; 4 min</b><span>Median incident line answer</span></div>
+        <div><b>300+</b><span>Testing and security audits</span></div>
+      </div>
+    </div>
+    <div class="frame term">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div class="termbar">
+        <span style="width:7px;height:7px;background:var(--color-accent-300);display:block"></span>
+        <span>4eyes-ops · account BX-2291 · authorised scope</span>
+      </div>
+      <div id="term"></div>
+      <div class="termline"><span class="cursor"></span></div>
+      <div class="termfoot"><b id="term-stage">RECON</b><span id="term-what">Mapping every host the internet can reach in the authorised range.</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="sect" style="padding-bottom:0">
+    <div class="statband">
+      <div class="statcell"><div class="kicker" style="margin-bottom:0">Recovery</div><div class="statnum">15 min</div><div class="statlabel">Recovery point objective on every protected workload</div></div>
+      <div class="statcell"><div class="kicker" style="margin-bottom:0">Restores</div><div class="statnum"><span class="up">23 / 24</span></div><div class="statlabel">Monthly restores passed first time. The one failure was caught in a drill, fixed in 48 hours</div></div>
+      <div class="statcell"><div class="kicker" style="margin-bottom:0">Response</div><div class="statnum">&lt; 4 min</div><div class="statlabel">Median answer on the incident line, any hour of any day</div></div>
+      <div class="statcell"><div class="kicker" style="margin-bottom:0">Testing</div><div class="statnum">300+</div><div class="statlabel">Testing and security audits delivered across 11 sectors</div></div>
+    </div>
+  </section>
+
+  <section class="sect">
+    <span class="kicker">01 · The two halves</span>
+    <hr class="crule">
+    <h2 class="h2" style="margin-bottom:calc(1.5*var(--leading))">Keep them out. Come back fast.</h2>
+    <div class="twocol">
+      <div class="frame pillar">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="pillartag">Half one · keep them out</span>
+        <h3 class="h3" style="font-size:26px">Information security</h3>
+        <p class="body">Offensive testing to find the way in before anyone else does, and forensic examiners on call for the day somebody else finds it first.</p>
+        <div class="checks" style="margin-top:var(--half)">
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Annual penetration test, web, API and external</span></div>
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Red team, phishing simulation and awareness training</span></div>
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Digital forensics and incident response, four-hour callout</span></div>
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Hardening advice written for your engineers</span></div>
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Chain-of-custody evidence that survives an insurer or a court</span></div>
+        </div>
+      </div>
+      <div class="frame pillar">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="pillartag">Half two · come back fast</span>
+        <h3 class="h3" style="font-size:26px">Backup &amp; recovery</h3>
+        <p class="body">Continuous immutable copies of everything you run on, plus a rehearsed recovery so the plan is a fact, not a document.</p>
+        <div class="checks" style="margin-top:var(--half)">
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Continuous backup, 15-minute recovery point</span></div>
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Immutable vault nobody can delete early</span></div>
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Disaster recovery orchestration into standby compute</span></div>
+          <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span>Verified restore test every single month</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-top:0">
+    <div class="frame brandplate">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <button type="button" class="brandplate-mark markplay" aria-label="Play the 4Eyes mark: two routes, one verdict">
+        <img src="{% static 'website/images/asset-c3f27286-b175-49ef-8adc-ad500afb5d5e.png' %}" alt="Two routes through one maze, converging on a single verification point">
+      </button>
+      <div>
+        <span class="kicker" style="margin-bottom:6px">The principle</span>
+        <p class="brandline">Two pairs of eyes<span>·</span>one verdict</p>
+        <p class="body" style="font-size:14.5px;max-width:56ch;margin-top:var(--half)">Two routes through the same maze, meeting at one verified point. It is how we test, how we investigate and how we hold your data: no finding leaves on one operator's word, and nothing in the vault can be deleted on one administrator's authority.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="sect" id="services">
+    <span class="kicker">02 · Services</span>
+    <hr class="crule">
+    <h2 class="h2" style="margin-bottom:calc(1.5*var(--leading))">Seven services, one contract</h2>
+    <div class="svcgrid">
+      <article class="frame svc" data-svc="pentest" role="button" tabindex="0" aria-expanded="false" aria-controls="breakout">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="svcnum">01</span><span class="svcband">Security</span>
+        <h3 class="h3">Penetration testing</h3>
+        <p class="body">External, web and API assessments run by hand, not by scanner. Access control and tenancy boundaries get the time, because that is where the breaches are.</p>
+        <div class="svcfoot"><span>5–15 days</span><span style="color:var(--color-accent-700)">Report + free retest</span></div>
+        <div class="svcopen"><i></i>What this includes</div>
+      </article>
+      <article class="frame svc" data-svc="dfir" role="button" tabindex="0" aria-expanded="false" aria-controls="breakout">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="svcnum">02</span><span class="svcband">Forensics</span>
+        <h3 class="h3">Digital forensics &amp; incident response</h3>
+        <p class="body">When it has already happened: containment first, then a defensible account of what was taken, by whom and when. Two examiners on every finding.</p>
+        <div class="svcfoot"><span>Emergency or retainer</span><span style="color:var(--color-accent-700)">Court-ready report</span></div>
+        <div class="svcopen"><i></i>What this includes</div>
+      </article>
+      <article class="frame svc" data-svc="red" role="button" tabindex="0" aria-expanded="false" aria-controls="breakout">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="svcnum">03</span><span class="svcband">Security</span>
+        <h3 class="h3">Red team &amp; phishing</h3>
+        <p class="body">Objective-led adversary emulation against your detection team, plus social engineering under agreed rules. Ends in a purple debrief, not a scoreboard.</p>
+        <div class="svcfoot"><span>2–8 weeks</span><span style="color:var(--color-accent-700)">Purple debrief</span></div>
+        <div class="svcopen"><i></i>What this includes</div>
+      </article>
+      <article class="frame svc" data-svc="backup" role="button" tabindex="0" aria-expanded="false" aria-controls="breakout">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="svcnum">04</span><span class="svcband protect">Backup</span>
+        <h3 class="h3">Continuous backup</h3>
+        <p class="body">Block-level change capture every 15 minutes across servers, laptops, SaaS and databases. No backup window, no overnight job that quietly failed.</p>
+        <div class="svcfoot"><span>Ongoing</span><span style="color:var(--color-accent-700)">RPO 15 min</span></div>
+        <div class="svcopen"><i></i>What this includes</div>
+      </article>
+      <article class="frame svc" data-svc="vault" role="button" tabindex="0" aria-expanded="false" aria-controls="breakout">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="svcnum">05</span><span class="svcband protect">Backup</span>
+        <h3 class="h3">Immutable ransomware vault</h3>
+        <p class="body">Snapshots land in object-lock storage nobody (not us, not your admins, not an attacker with your credentials) can alter before retention runs out.</p>
+        <div class="svcfoot"><span>Ongoing</span><span style="color:var(--color-accent-700)">WORM · 7 yr · 2 regions</span></div>
+        <div class="svcopen"><i></i>What this includes</div>
+      </article>
+      <article class="frame svc" data-svc="dr" role="button" tabindex="0" aria-expanded="false" aria-controls="breakout">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="svcnum">06</span><span class="svcband protect">Backup</span>
+        <h3 class="h3">Disaster recovery &amp; compliance</h3>
+        <p class="body">Runbooks that boot your estate in dependency order into standby compute, and evidence packs generated from what actually happened.</p>
+        <div class="svcfoot"><span>Ongoing</span><span style="color:var(--color-accent-700)">RTO from 20 min</span></div>
+        <div class="svcopen"><i></i>What this includes</div>
+      </article>
+      <article class="frame svc svc-wide" data-svc="training" role="button" tabindex="0" aria-expanded="false" aria-controls="breakout">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div class="svcwidebody">
+          <div>
+            <span class="svcnum">07</span>
+            <span class="svcband">People</span>
+            <h3 class="h3" style="margin-top:10px">Security awareness training</h3>
+          </div>
+          <p class="body">Built from your own results, not a stock video library. We teach against the phishing pretexts that actually worked on your staff and the findings our testers used to get in, so the training is evidence of a real weakness rather than an annual compliance tick.</p>
+          <div>
+            <div class="svcfoot" style="border:0;padding:0;margin:0"><span>Quarterly or on hire</span><span style="color:var(--color-accent-700)">Measured, not attended</span></div>
+            <div class="svcopen"><i></i>What this includes</div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="frame breakout" id="breakout" role="region" aria-live="polite">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap">
+        <div>
+          <span class="mono" id="bo-tag" style="font-size:10.5px;letter-spacing:.16em;text-transform:uppercase"></span>
+          <h3 class="h3" id="bo-title" style="font-size:28px;margin-top:8px"></h3>
+        </div>
+        <button type="button" class="btn btn-secondary btn-icon" id="bo-close" aria-label="Close detail">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+      <p class="body" id="bo-lede" style="margin-top:var(--half);max-width:70ch"></p>
+      <div class="bogrid">
+        <div class="bocol"><h4>What we do</h4><ul id="bo-scope"></ul></div>
+        <div class="bocol"><h4>What you get</h4><ul id="bo-deliver"></ul></div>
+        <div class="bocol"><h4>How it runs</h4><ul id="bo-runs"></ul></div>
+      </div>
+      <div class="bospec" id="bo-spec"></div>
+      <div style="display:flex;gap:var(--space-2);margin-top:var(--leading);flex-wrap:wrap">
+        <button type="button" class="btn btn-primary" data-quote="">Request a quote for this</button>
+        <button type="button" class="btn btn-secondary" data-jump="contact">Ask an engineer</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sect" id="lifecycle">
+    <span class="kicker">03 · Lifecycle</span>
+    <hr class="crule">
+    <h2 class="h2" style="margin-bottom:calc(2*var(--leading))">Assess, harden, protect, respond, recover</h2>
+    <div class="phase">
+      <div class="phasecell"><div class="phasenum">P01</div><h3 class="h3" style="margin:10px 0 8px;font-size:18px">Assess</h3><p class="body" style="font-size:13.5px">We map the real attack surface and what each system costs you per hour of downtime, then write the objectives down.</p></div>
+      <div class="phasecell"><div class="phasenum">P02</div><h3 class="h3" style="margin:10px 0 8px;font-size:18px">Harden</h3><p class="body" style="font-size:13.5px">Findings from testing become a fix order your engineers can ship, with the retest already booked.</p></div>
+      <div class="phasecell"><div class="phasenum">P03</div><h3 class="h3" style="margin:10px 0 8px;font-size:18px">Protect</h3><p class="body" style="font-size:13.5px">Agents deploy from your MDM in an afternoon; the first copy seeds, then incrementals every quarter hour into the vault.</p></div>
+      <div class="phasecell"><div class="phasenum">P04</div><h3 class="h3" style="margin:10px 0 8px;font-size:18px">Respond</h3><p class="body" style="font-size:13.5px">If something lands, examiners contain it and preserve the evidence while backup pins the last clean restore point.</p></div>
+      <div class="phasecell"><div class="phasenum">P05</div><h3 class="h3" style="margin:10px 0 8px;font-size:18px">Recover</h3><p class="body" style="font-size:13.5px">A real restore is tested monthly and timed. If a test fails, that is our incident to close, not yours to discover.</p></div>
+    </div>
+  </section>
+
+  <section class="sect split" id="coverage">
+    <div>
+      <span class="kicker">04 · Coverage</span>
+      <hr class="crule">
+      <h2 class="h2">From a substation to a kitchen table</h2>
+      <p class="body" style="margin-top:var(--leading);max-width:48ch">Over three hundred testing and security audits: PLCs on a pump station, an IoT board on a bench, a monorepo under review, a substation at midnight, and the home laptop your finance director actually works from. Same operators, same standard of evidence, whatever the estate looks like.</p>
+      <div class="checks">
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span><b>OT and industrial control:</b> PLCs, SCADA, pump and pressure stations, on-site and hands-on</span></div>
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span><b>Embedded and IoT:</b> firmware, authentication chips, encrypted comms, bench teardown</span></div>
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span><b>Software and cloud:</b> source review, APIs, CI/CD, IAM paths and Kubernetes</span></div>
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span><b>Utilities and critical sites:</b> substations, remote plant, out-of-hours field work</span></div>
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span><b>Remote and hybrid workforce:</b> the kitchen-table laptop, backed up and restore-tested like any server</span></div>
+        <div class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5" style="flex:none;margin-top:3px"><path d="M20 6L9 17l-5-5"></path></svg><span><b>Our own forensic lab:</b> imaging, memory and timeline work done in house, not subcontracted</span></div>
+      </div>
+      <div class="bospec" style="margin-top:calc(1.5*var(--leading))">
+        <div><b>300+</b><span>Testing &amp; security audits</span></div>
+        <div><b>11</b><span>Regulated sectors covered</span></div>
+        <div><b>AI + human</b><span>Every engagement, both</span></div>
+      </div>
+      <div style="display:flex;gap:var(--space-2);margin-top:var(--leading);flex-wrap:wrap">
+        <button type="button" class="btn btn-secondary" data-jump="services">See the services</button>
+        <button type="button" class="btn btn-ghost" data-quote="">Ask if we cover your estate</button>
+      </div>
+    </div>
+    <div>
+      <div class="tilegrid">
+        <figure class="tile t-third"><img src="{% static 'website/images/asset-779b453c-db6b-4ff3-a3ba-36976350b499.jpg' %}" alt="IoT security audit, board-level teardown"><span class="idx">01</span><span class="lbl"><b>Embedded / IoT</b>Board teardown, firmware, auth chip</span></figure>
+        <figure class="tile t-wide"><img src="{% static 'website/images/asset-72b997ea-94c9-4a06-82f7-e2730847a5d6.jpg' %}" alt="Field vulnerability assessment at a pump station"><span class="idx">02</span><span class="lbl"><b>OT / industrial</b>Pump station 4 · PLC and SCADA assessment</span></figure>
+        <figure class="tile t-half"><img src="{% static 'website/images/asset-9dcabe23-b904-4bcb-854e-d0298b529547.jpg' %}" alt="Source code review"><span class="idx">03</span><span class="lbl"><b>Software / cloud</b>Source review, APIs, CI/CD, IAM</span></figure>
+        <figure class="tile t-half"><img src="{% static 'website/images/asset-f117c1f5-2797-476a-8260-106388d50560.jpg' %}" alt="Examiners working a forensic case"><span class="idx">04</span><span class="lbl"><b>Forensic lab</b>Imaging, memory and timeline analysis</span></figure>
+        <figure class="tile t-third"><img src="{% static 'website/images/asset-43eec507-6fb4-4a94-a343-d786a0381a53.jpg' %}" alt="Remote worker at a kitchen table"><span class="idx">05</span><span class="lbl"><b>Remote workforce</b>The kitchen table</span></figure>
+        <figure class="tile t-wide"><img src="{% static 'website/images/asset-f3fe32ef-cc0d-4fff-aeb2-7ecdb16a1c2d.jpg' %}" alt="Substation audit at night"><span class="idx">06</span><span class="lbl"><b>Utilities / critical sites</b>Substation, out of hours</span></figure>
+      </div>
+      <div class="tilecap">
+        <span>Sheet 04 · coverage · six environments</span>
+        <span>Field and bench work, 2019–2026</span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="steel" id="evidence" data-bg="photo">
+  <div class="steelphoto"><img class="slot-image" src="{% static 'website/images/asset-08701087-d6dc-4e38-a5ad-d8a7fd37724e.jpg' %}" alt="" placeholder="Drop a security-operations photo, screens, incident bridge, server aisle"><span class="dropnote">Backdrop: drag a photograph onto this band</span></div>
+  <div class="steelcanvas"><canvas></canvas></div>
+  <div class="steelvideo"><video id="vid-evidence" muted="" loop="" playsinline=""></video></div>
+  <div class="wrap sect">
+    <span class="kicker">05 · What lands on your desk</span>
+    <hr class="crule">
+    <h2 class="h2" style="margin-bottom:calc(2*var(--leading))">Findings, cases and restores, all evidenced</h2>
+    <div class="report">
+      <div>
+        <div class="seg evtabs" role="tablist" style="margin-bottom:var(--leading)">
+          <label class="seg-opt"><input type="radio" name="ev" value="0" checked="">Test findings</label>
+          <label class="seg-opt"><input type="radio" name="ev" value="1">Forensic case</label>
+          <label class="seg-opt"><input type="radio" name="ev" value="2">Restore log</label>
+        </div>
+        <div class="frame evpanel on" style="padding:var(--leading)">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div class="mono" style="font-size:10.5px;letter-spacing:.14em;color:var(--color-accent-300)">BX-2291 · ANNUAL TEST · 12 DAYS</div>
+          <h3 class="h3" style="margin:10px 0 var(--leading)">Findings by severity</h3>
+          <div class="sevrow"><span class="sevlabel crit">Critical</span><span class="sevtrack"><i class="crit" style="width:100%"></i></span><span class="mono" style="text-align:right;font-size:13px">4</span></div>
+          <div class="sevrow"><span class="sevlabel high">High</span><span class="sevtrack"><i class="high" style="width:74%"></i></span><span class="mono" style="text-align:right;font-size:13px">7</span></div>
+          <div class="sevrow"><span class="sevlabel">Medium</span><span class="sevtrack"><i style="width:52%"></i></span><span class="mono" style="text-align:right;font-size:13px">12</span></div>
+          <div class="sevrow"><span class="sevlabel">Low</span><span class="sevtrack"><i style="width:34%"></i></span><span class="mono" style="text-align:right;font-size:13px">9</span></div>
+          <div class="sevrow"><span class="sevlabel">Info</span><span class="sevtrack"><i style="width:18%"></i></span><span class="mono" style="text-align:right;font-size:13px">16</span></div>
+          <div class="mono" style="font-size:10.5px;letter-spacing:.1em;margin-top:var(--leading);padding-top:var(--half);border-top:1px solid color-mix(in srgb,#f2f2f3 18%,transparent);color:color-mix(in srgb,#f2f2f3 62%,transparent)">ALL 4 CRITICALS REMEDIATED · RETEST PASSED 14 AUG</div>
+        </div>
+        <div class="frame evpanel" style="padding:var(--leading)">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div class="mono" style="font-size:10.5px;letter-spacing:.14em;color:var(--color-accent-300)">CASE BX-2118 · FORENSIC TIMELINE · REDACTED</div>
+          <h3 class="h3" style="margin:10px 0 var(--leading)">What happened, hour by hour</h3>
+          <div class="caserow"><span class="t">02:41</span><span class="m"><i class="key"></i></span><span class="d"><b>Initial access</b><span>Contractor VPN credential used from an unrecognised ASN. No MFA on the account.</span></span></div>
+          <div class="caserow"><span class="t">02:58</span><span class="m"><i></i></span><span class="d"><b>Discovery and staging</b><span>Share enumeration, 41 GB copied to a staging folder on the file cluster.</span></span></div>
+          <div class="caserow"><span class="t">03:44</span><span class="m"><i class="key"></i></span><span class="d"><b>Containment</b><span>Endpoint isolated, VPN account disabled, clean restore point pinned before any change.</span></span></div>
+          <div class="caserow"><span class="t">04:10</span><span class="m"><i></i></span><span class="d"><b>Evidence acquired</b><span>Memory and disk imaged, SHA-256 recorded, custody form signed by two examiners.</span></span></div>
+          <div class="caserow"><span class="t">09:20</span><span class="m"><i></i></span><span class="d"><b>Exfiltration scoped</b><span>Egress logs show the staging folder was never transferred. Accessed, not taken.</span></span></div>
+          <div class="caserow"><span class="t">14:02</span><span class="m"><i></i></span><span class="d"><b>Notification advised</b><span>No notifiable personal data left the estate; the assessment and its reasoning went to counsel.</span></span></div>
+          <div class="mono" style="font-size:10.5px;letter-spacing:.1em;margin-top:var(--half);padding-top:var(--half);border-top:1px solid color-mix(in srgb,#f2f2f3 18%,transparent);color:color-mix(in srgb,#f2f2f3 62%,transparent)">DWELL TIME 63 MIN · EVIDENCE HELD UNDER CLIENT INSTRUCTION</div>
+        </div>
+        <div class="frame evpanel" style="padding:var(--leading)">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <div class="mono" style="font-size:10.5px;letter-spacing:.14em;color:var(--color-accent-300)">RESTORE VERIFICATION · LAST 6 MONTHS</div>
+          <h3 class="h3" style="margin:10px 0 var(--leading)">Every restore, timed</h3>
+          <div class="sevrow restore"><span style="font-size:13.5px">File cluster · 4.2 TB</span><span class="mono" style="font-size:12px;color:var(--color-accent-300)">34m 08s</span><span class="pill pass" style="padding:2px 8px">Pass</span></div>
+          <div class="sevrow restore"><span style="font-size:13.5px">Postgres primary · 880 GB</span><span class="mono" style="font-size:12px;color:var(--color-accent-300)">18m 41s</span><span class="pill pass" style="padding:2px 8px">Pass</span></div>
+          <div class="sevrow restore"><span style="font-size:13.5px">Microsoft 365 tenant</span><span class="mono" style="font-size:12px;color:var(--color-accent-300)">52m 12s</span><span class="pill pass" style="padding:2px 8px">Pass</span></div>
+          <div class="sevrow restore"><span style="font-size:13.5px">Postgres primary · Feb attempt</span><span class="mono" style="font-size:12px;color:var(--sev-crit-on-dark)">aborted 41m</span><span class="pill crit" style="padding:2px 8px">Fail</span></div>
+          <div class="sevrow restore"><span style="font-size:13.5px">Field laptop fleet · sample 12</span><span class="mono" style="font-size:12px;color:var(--color-accent-300)">9m 27s</span><span class="pill pass" style="padding:2px 8px">Pass</span></div>
+          <p class="body" style="font-size:12.5px;margin-top:var(--half)">February failed: a WAL retention change on the client side left the archive short of a full replay. We found it in the drill, not in an incident. Fixed, re-run inside 48 hours, passed at 18m 41s.</p>
+          <div class="mono" style="font-size:10.5px;letter-spacing:.1em;margin-top:var(--half);padding-top:var(--half);border-top:1px solid color-mix(in srgb,#f2f2f3 18%,transparent);color:color-mix(in srgb,#f2f2f3 62%,transparent)">23 OF 24 PASSED FIRST TIME · 24 OF 24 AFTER REMEDIATION · RTO 60 MIN</div>
+        </div>
+      </div>
+
+      <div class="frame finding">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="display:flex;gap:var(--half);flex-wrap:wrap;align-items:center">
+          <span class="pill crit">Critical</span><span class="pill">CVSS 9.1</span><span class="pill pass">Remediated</span>
+          <span class="mono" style="margin-left:auto;font-size:11px;color:var(--color-accent-300)">BX-2291-004</span>
+        </div>
+        <h3 class="h3" style="margin-top:10px">Tenant boundary bypass in the export API</h3>
+        <div class="meter" style="margin:6px 0 4px">
+          <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+        </div>
+        <div class="mono" style="font-size:10px;letter-spacing:.12em;color:color-mix(in srgb,#f2f2f3 60%,transparent)">EXPLOITABILITY 9.1 / 10 · UNAUTHENTICATED · NETWORK</div>
+        <p class="body" style="font-size:14.5px;margin-top:var(--half)">The report export endpoint trusted a client-supplied organisation id. Swapping it returned another tenant's documents, including signed download URLs valid for seven days. Reproduced across three tenants inside eleven minutes of first access.</p>
+        <div class="codeblock">GET /api/v2/exports?org=8841&amp;format=csv
+→ 200 OK · 4,912 rows · tenant "northbay-clinics"
+   x-4ef-note: caller authenticated as org 1207</div>
+        <p class="body" style="font-size:14px">Fix shipped: server-side tenant derivation from the session, signed URLs scoped to the issuing org, and a regression test in your CI that we wrote with your team. A clean restore point was pinned before remediation began.</p>
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:auto;padding-top:var(--half)">
+          <button type="button" class="btn btn-primary" data-pack-open="">Get the sample evidence pack</button>
+          <button type="button" class="btn btn-secondary" data-auth-open="">Open in the portal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <section class="sect" id="pricing">
+    <div class="pricehead">
+      <div>
+        <span class="kicker">06 · Pricing</span>
+        <hr class="crule">
+        <h2 class="h2">Scoped to your estate, quoted by an engineer</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap">
+        <div class="seg" id="sizeseg">
+          <label class="seg-opt"><input type="radio" name="estate" value="0">Under 50</label>
+          <label class="seg-opt"><input type="radio" name="estate" value="1" checked="">50–500</label>
+          <label class="seg-opt"><input type="radio" name="estate" value="2">500+</label>
+        </div>
+        <span class="mono" id="sizenote" style="font-size:11px;letter-spacing:.1em;color:var(--color-accent-700)"></span>
+      </div>
+    </div>
+
+    <div class="frame" style="padding:0">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="overflow-x:auto">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th scope="col"><span class="mono" style="font-size:10.5px;letter-spacing:.14em;color:color-mix(in srgb,var(--color-text) 55%,transparent)">SHEET 02 · SCOPE COMPARISON</span></th>
+            <th scope="col" data-col="0"><span class="tiertag">Plan A</span><span class="tiername">Guard</span><span class="tierprice">Custom</span><span class="tierunit">Quoted per endpoint · min. 10</span><span class="reco">Recommended</span></th>
+            <th scope="col" data-col="1"><span class="tiertag">Plan B · most taken</span><span class="tiername">Fortify</span><span class="tierprice">Custom</span><span class="tierunit">Quoted per endpoint + data volume</span><span class="reco">Recommended</span></th>
+            <th scope="col" data-col="2"><span class="tiertag">Plan C</span><span class="tiername">Custody</span><span class="tierprice">Custom</span><span class="tierunit">Estate-wide agreement</span><span class="reco">Recommended</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rowlabel">Continuous backup</td><td data-col="0">15 min RPO</td><td data-col="1">15 min RPO</td><td data-col="2">15 min RPO</td></tr>
+          <tr><td class="rowlabel">Immutable vault retention</td><td data-col="0">90 days</td><td data-col="1">7 years, 2 regions</td><td data-col="2">7 years + custom hold</td></tr>
+          <tr><td class="rowlabel">Verified restore test</td><td data-col="0">Quarterly</td><td data-col="1">Monthly</td><td data-col="2">Monthly + on demand</td></tr>
+          <tr><td class="rowlabel">Penetration test</td><td data-col="0">Annual, external</td><td data-col="1">Annual, web + API + external</td><td data-col="2">Annual + red team</td></tr>
+          <tr><td class="rowlabel">Awareness training</td><td data-col="0">Annual, recorded</td><td class="yes" data-col="1">Quarterly + on hire</td><td class="yes" data-col="2">Quarterly + tabletop</td></tr>
+          <tr><td class="rowlabel">Forensic investigation</td><td class="no" data-col="0">·</td><td class="yes" data-col="1">Included</td><td class="yes" data-col="2">Included, named examiner</td></tr>
+          <tr><td class="rowlabel">DR orchestration</td><td class="no" data-col="0">·</td><td class="yes" data-col="1">Included</td><td data-col="2">With standby compute</td></tr>
+          <tr><td class="rowlabel">Incident response SLA</td><td data-col="0">Next business day</td><td data-col="1">4 hours</td><td data-col="2">1 hour, named commander</td></tr>
+          <tr><td class="rowlabel">Compliance evidence pack</td><td class="no" data-col="0">·</td><td data-col="1">Annual</td><td data-col="2">Quarterly</td></tr>
+          <tr><td class="rowlabel">Contractual RTO</td><td class="no" data-col="0">·</td><td data-col="1">60 minutes</td><td data-col="2">20 minutes, with credits</td></tr>
+          <tr>
+            <td class="rowlabel"></td>
+            <td data-col="0"><button type="button" class="btn btn-secondary" data-quote="">Request a quote</button></td>
+            <td data-col="1"><button type="button" class="btn btn-primary" data-quote="">Request a quote</button></td>
+            <td data-col="2"><button type="button" class="btn btn-secondary" data-quote="">Call an engineer</button></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <p class="body" style="font-size:13px;margin-top:var(--half)">No list price: every estate is different, so an engineer scopes yours and quotes it against endpoints, data volume, retention, response times and the testing you actually need. Every plan includes the annual penetration test, the free retest, monthly verified restores and the evidence pack your auditors ask for.</p>
+
+    <div class="frame quotebar">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div>
+        <span class="kicker" style="margin-bottom:4px">Talk to a person</span>
+        <a href="tel:+442079460042" class="callnum">+44 20 7946 0042</a>
+        <span class="mono" style="display:block;font-size:11px;letter-spacing:.1em;margin-top:8px;color:color-mix(in srgb,var(--color-text) 60%,transparent)">MON–FRI 08:00–19:00 · INCIDENT LINE 24/7</span>
+      </div>
+      <div>
+        <span class="kicker" style="margin-bottom:4px">Or have us price it</span>
+        <p class="body" style="font-size:14px">Send the estate size and what you need covered. A scoped, fixed quote comes back within one business day, with no discovery call required first.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <button type="button" class="btn btn-primary frame" data-quote="">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Request a quote
+        </button>
+        <button type="button" class="btn btn-secondary" data-pack-open="">Or see the sample pack</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sect" id="stories">
+    <span class="kicker">07 · Customer success stories</span>
+    <hr class="crule">
+    <h2 class="h2" style="margin-bottom:calc(1.5*var(--leading))">Three estates, three bad days</h2>
+    <div class="stories">
+      <article class="story">
+        <div class="storyfig duotone"><img class="slot-image" src="{% static 'website/images/asset-44e6a040-33f5-4075-a1a5-b7443ed032c4.jpg' %}" alt="" placeholder="Manufacturing customer photo"></div>
+        <div class="storybody">
+          <span class="mono" style="font-size:10.5px;letter-spacing:.14em;color:var(--color-accent-700)">MANUFACTURING · 480 ENDPOINTS</span>
+          <h3 class="h3" style="font-size:19px">Ransomware on a Sunday night</h3>
+          <div class="storyrow"><b>Situation</b><span>Encryption began on the file estate at 02:41, from a contractor VPN account nobody had disabled.</span></div>
+          <div class="storyrow"><b>What we did</b><span>Endpoint isolation tripped automatically; we pinned the last clean vault copy and rebuilt the file cluster while our examiners traced the account.</span></div>
+          <div class="storyrow"><b>Outcome</b><span>Production ran on Monday morning. Eleven minutes of work was lost, and the VPN review became a standing item.</span></div>
+          <div class="storystat"><b class="good">26 min</b><span>Full restore, no ransom paid</span></div>
+        </div>
+      </article>
+      <article class="story">
+        <div class="storyfig duotone"><img class="slot-image" src="{% static 'website/images/asset-5f3c33d3-651e-4a9a-b4d9-456daf1a2bef.jpg' %}" alt="" placeholder="Healthcare customer photo"></div>
+        <div class="storybody">
+          <span class="mono" style="font-size:10.5px;letter-spacing:.14em;color:var(--color-accent-700)">HEALTHCARE · 1,200 STAFF</span>
+          <h3 class="h3" style="font-size:19px">An audit that kept failing</h3>
+          <div class="storyrow"><b>Situation</b><span>Two consecutive audits flagged unproven backups and an untested recovery plan across nine clinics.</span></div>
+          <div class="storyrow"><b>What we did</b><span>We took over backup, ran a penetration test that found a tenant bypass in their portal, and started monthly timed restores with evidence packs.</span></div>
+          <div class="storyrow"><b>Outcome</b><span>The third audit closed first pass. Restore evidence now goes to the board quarterly without anyone assembling it by hand.</span></div>
+          <div class="storystat"><b class="good">0</b><span>Findings in the last three audits</span></div>
+        </div>
+      </article>
+      <article class="story">
+        <div class="storyfig duotone"><img class="slot-image" src="{% static 'website/images/asset-21f09788-3700-45c2-ab78-2099ef03c206.jpg' %}" alt="" placeholder="Logistics customer photo"></div>
+        <div class="storybody">
+          <span class="mono" style="font-size:10.5px;letter-spacing:.14em;color:var(--color-accent-700)">LOGISTICS · 2,600 ENDPOINTS</span>
+          <h3 class="h3" style="font-size:19px">A recovery plan nobody had tried</h3>
+          <div class="storyrow"><b>Situation</b><span>An eight-hour recovery objective on paper, never rehearsed, across a fleet of warehouse systems.</span></div>
+          <div class="storyrow"><b>What we did</b><span>We broke a live warehouse system in a sandbox, timed the orchestrated recovery, and rewrote the runbook around what actually happened.</span></div>
+          <div class="storyrow"><b>Outcome</b><span>A contractual RTO they can defend, and quarterly drills their own team now runs without us in the room.</span></div>
+          <div class="storystat"><b class="good">8h to 34m</b><span>Measured recovery time</span></div>
+        </div>
+      </article>
+    </div>
+    <div style="display:flex;gap:var(--space-2);margin-top:calc(1.5*var(--leading));flex-wrap:wrap">
+      <button type="button" class="btn btn-secondary" data-pack-open="">See the sample pack</button>
+      <button type="button" class="btn btn-ghost" data-jump="clients">Hear it in their words ↓</button>
+    </div>
+  </section>
+
+  <section class="sect" id="clients" style="padding-top:0">
+    <div class="carhead">
+      <div>
+        <span class="kicker">08 · In their words</span>
+        <hr class="crule">
+        <h2 class="h2">Told by the people who called us</h2>
+      </div>
+      <div style="display:flex;gap:var(--space-2)">
+        <button type="button" class="btn btn-secondary btn-icon" id="revprev" aria-label="Previous testimonial">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"></path></svg>
+        </button>
+        <button type="button" class="btn btn-secondary btn-icon" id="revnext" aria-label="Next testimonial">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="viewport">
+      <div class="track" id="revtrack">
+        <figure class="frame quotecard">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <span class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--color-accent-700)">MANUFACTURING · 480 ENDPOINTS</span>
+          <blockquote class="quotetext">We got hit on a Sunday. By the time our own escalation call had everyone awake, 4Eyes had the file servers back from a vault copy taken eleven minutes before the encryption started.</blockquote>
+          <figcaption class="who">
+            <span class="avatar mono">DI</span>
+            <span><span style="display:block;font-size:15px">Dana Imrie</span><span class="body" style="display:block;font-size:13px">IT Director, Kesterline Industrial</span></span>
+            <span class="mono" style="margin-left:auto;font-size:12px;color:var(--color-accent-700);text-align:right">RESTORED IN 26 MIN</span>
+          </figcaption>
+        </figure>
+        <figure class="frame quotecard">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <span class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--color-accent-700)">HEALTHCARE · 1,200 STAFF</span>
+          <blockquote class="quotetext">They found a tenancy bypass on day four of the test and phoned me before it was written up. Then they proved the backups came back. Auditors stopped asking either question.</blockquote>
+          <figcaption class="who">
+            <span class="avatar mono">AO</span>
+            <span><span style="display:block;font-size:15px">Adaeze Okonkwo</span><span class="body" style="display:block;font-size:13px">CISO, Northbay Clinics</span></span>
+            <span class="mono" style="margin-left:auto;font-size:12px;color:var(--color-accent-700);text-align:right">3 AUDITS, ZERO FINDINGS</span>
+          </figcaption>
+        </figure>
+        <figure class="frame quotecard">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <span class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--color-accent-700)">PROFESSIONAL SERVICES · 90 STAFF</span>
+          <blockquote class="quotetext">We are ninety people with no security team. They tested us, they hold the only copy an attacker cannot reach, and when we called at four in the morning a human answered.</blockquote>
+          <figcaption class="who">
+            <span class="avatar mono">MR</span>
+            <span><span style="display:block;font-size:15px">Marek Rutkowski</span><span class="body" style="display:block;font-size:13px">Managing Partner, Halden &amp; Roe</span></span>
+            <span class="mono" style="margin-left:auto;font-size:12px;color:var(--color-accent-700);text-align:right">IT HEADCOUNT UNCHANGED</span>
+          </figcaption>
+        </figure>
+        <figure class="frame quotecard">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <span class="mono" style="font-size:11px;letter-spacing:.14em;color:var(--color-accent-700)">LOGISTICS · 2,600 ENDPOINTS</span>
+          <blockquote class="quotetext">The review sold it. They broke a warehouse system on purpose, recovered it in front of us, and handed over the timings. Our old provider had never once shown us that.</blockquote>
+          <figcaption class="who">
+            <span class="avatar mono">SV</span>
+            <span><span style="display:block;font-size:15px">Sofia Vance</span><span class="body" style="display:block;font-size:13px">VP Infrastructure, Portway Freight</span></span>
+            <span class="mono" style="margin-left:auto;font-size:12px;color:var(--color-accent-700);text-align:right">RTO 8H TO 34 MIN</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+    <div class="dots" id="revdots"></div>
+  </section>
+
+  <section class="sect" style="padding-top:0">
+    <div class="logos">
+      <div>Kesterline</div><div>Northbay</div><div>Portway</div><div>Halden &amp; Roe</div><div>Grebe Marine</div><div>Ashcroft</div>
+    </div>
+  </section>
+
+  <section class="sect close" id="contact">
+    <div>
+      <span class="kicker">09 · Review</span>
+      <hr class="crule">
+      <h2 class="h2">Find out what you'd lose, and how fast you'd get it back</h2>
+      <p class="body" style="margin-top:var(--leading);max-width:50ch">Forty-five minutes with an engineer, on your real estate. We map the exposure, pick one workload, break it in a sandbox and time the restore. You keep the report either way. Under active attack? The incident line is answered in under four minutes, day or night.</p>
+    </div>
+    <div class="signup">
+      <input class="input" type="email" placeholder="you@company.com" aria-label="Work email">
+      <button type="button" class="btn btn-primary frame" data-book="">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        Book the review
+      </button>
+    </div>
+  </section>
+
+  <section class="sect" id="secure" style="padding-top:0">
+    <div class="frame securebox" style="margin-top:0">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div>
+        <span class="kicker">10 · Encrypted contact</span>
+        <hr class="crule">
+        <h3 class="h3" style="font-size:26px">Send it encrypted, not in plain text</h3>
+        <p class="body" style="font-size:14.5px;margin-top:var(--half)">If you are reporting a live incident, a vulnerability in someone else's product, or anything you would not want read in transit, encrypt it to our public key first. Log extracts, credentials and scope documents should never cross an unencrypted mailbox, least of all one that may already be in an attacker's hands.</p>
+        <div class="field" style="margin-top:var(--leading)">
+          <label>Our OpenPGP fingerprint</label>
+          <div class="keyline">
+            <code id="pgpfp">9E4C 27B1 A8D3 5F60 4E12  7A9F 3C81 D5B4 6620 EF07</code>
+            <button type="button" class="btn btn-secondary" id="copyfp">Copy</button>
+          </div>
+        </div>
+        <div class="keymeta">
+          <div>Key type<b>RSA 4096</b></div>
+          <div>Key ID<b>0x6620EF07</b></div>
+          <div>Created<b>2026-01-14</b></div>
+          <div>Expires<b>2028-01-14</b></div>
+        </div>
+        <div style="display:flex;gap:var(--space-2);margin-top:var(--leading);flex-wrap:wrap">
+          <a class="btn btn-primary frame" href="assets/4eyes-forensics-pubkey.asc" download="">
+            <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+            Download public key (.asc)
+          </a>
+          <a class="btn btn-secondary" href="mailto:secure@4eyesforensics.example">secure@4eyesforensics.example</a>
+        </div>
+        <p class="body" style="font-size:12.5px;margin-top:var(--half)">Verify the fingerprint out of band before you trust it. Read it back to us on the phone, or check it against the copy published at /.well-known/security.txt. Never take a key from an email alone.</p>
+      </div>
+      <div>
+        <span class="kicker">If email is not safe</span>
+        <hr class="crule">
+        <div class="altroute">
+          <div><b>Phone</b><span>Incident line +44 20 7946 0042, answered in under four minutes, day or night. Ask for the duty examiner.</span></div>
+          <div><b>Signal</b><span>+44 7700 900142. Use this if you believe your mail or identity provider is in the attacker's hands.</span></div>
+          <div><b>Upload</b><span>We issue a one-time encrypted upload link for disk images and log bundles too large to mail. Ask on the call.</span></div>
+          <div><b>In person</b><span>For seizure or chain-of-custody work an examiner attends site and signs for the evidence.</span></div>
+        </div>
+        <div class="frame" style="margin-top:var(--leading);padding:var(--half) var(--leading);background:var(--color-surface)">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <p class="body" style="font-size:13px;margin:0"><b>Already breached?</b> Do not power anything down and do not start deleting. Call the line first: switching a machine off destroys the memory evidence we may need.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footmain">
+      <div>
+        <button type="button" class="footlogo frame markplay" aria-label="Play the 4Eyes mark: two routes, one verdict">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <img src="{% static 'website/images/asset-31026757-380f-4693-b318-78cc1d87bdd4.png' %}" alt="4Eyes Forensics mark: two routes through one maze, meeting at a single verification point">
+        </button>
+        <span class="footbrand">4Eyes <span data-brand-word="">Forensics</span></span>
+        <span class="mono" style="display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-700);margin-top:4px">Two pairs of eyes · one verdict</span>
+        <p class="body" style="font-size:13.5px;margin-top:var(--half);max-width:34ch">Information security, backup and recovery under the four-eyes principle: nothing critical moves, and nothing ships, on one person's say-so.</p>
+        <span class="kicker" style="margin-top:var(--leading);margin-bottom:2px">Incident line, 24/7</span>
+        <a href="tel:+442079460042" class="footline">+44 20 7946 0042</a>
+        <div class="footcerts">
+          <span>SOC 2 Type II</span><span>ISO 27001</span><span>CREST member</span><span>Cyber Essentials Plus</span>
+        </div>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#services">Penetration testing</a></li>
+          <li><a href="#services">Digital forensics &amp; IR</a></li>
+          <li><a href="#services">Red team &amp; phishing</a></li>
+          <li><a href="#services">Awareness training</a></li>
+          <li><a href="#services">Continuous backup</a></li>
+          <li><a href="#services">Immutable vault</a></li>
+          <li><a href="#services">DR &amp; compliance</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#coverage">Coverage</a></li>
+          <li><a href="#stories">Customer stories</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Book a review</a></li>
+          <li><a href="#contact">Careers</a></li>
+          <li><a href="#" data-pack-open="">Sample pack</a></li>
+          <li><a href="#secure">Encrypted contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Trust</h5>
+        <ul>
+          <li><a href="assets/4eyes-forensics-pubkey.asc" download="">OpenPGP public key</a></li>
+          <li><a href="#contact">security.txt</a></li>
+          <li><a href="#contact">Responsible disclosure</a></li>
+          <li><a href="#contact">Rules of engagement</a></li>
+          <li><a href="#contact">Sub-processors</a></li>
+          <li><a href="#contact">Service status</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footlegal">
+      <span>© 2026 4Eyes <span data-brand-word="">Forensics</span> Ltd. Registered in England and Wales, 14882037. Registered office: 12 Wharfside Street, Birmingham B1 1RD.</span>
+      <span>Terms · Privacy · Cookies · Modern slavery statement</span>
+    </div>
+  </footer>
+</div>
+
+<div class="modalback logoback" id="logoback">
+  <div class="logocard frame">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <button type="button" class="btn btn-secondary btn-icon logoclose" aria-label="Close" data-logo-close="">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+    <div class="logostage"></div>
+    <div class="logofoot">
+      <p class="brandline" style="font-size:clamp(20px,2.4vw,30px)">Two pairs of eyes<span>·</span>one verdict</p>
+      <p class="body" style="font-size:13.5px;margin-top:6px;max-width:58ch">Two operators, two routes, one point where the answer is agreed. Watch either path alone and you have a guess; watch both converge and you have a finding.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modalback" id="packback">
+  <div class="modalcard frame">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <div class="modalhead">
+      <div>
+        <span class="kicker" style="margin-bottom:6px">The sample pack</span>
+        <h3 class="h3" style="font-size:28px">What we send you, before you buy anything</h3>
+      </div>
+      <button type="button" class="btn btn-secondary btn-icon" aria-label="Close" data-pack-close="">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <div class="modalbody">
+<p class="body" style="margin-top:var(--leading);max-width:62ch">A real engagement pack with the client details redacted, so you can judge the work rather than the sales copy. Nine documents, roughly ninety pages. Ask and it arrives the same day, with no call attached.</p>
+    <div class="packlist">
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><path d="M14 3v5h5"></path><path d="M6 3h8l5 5v13H6z"></path></svg>
+        <span><b>Executive brief</b><span>Two pages a board can read: what we found, what it would have cost, what changed.</span><em>PDF · 2 pp</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><path d="M14 3v5h5"></path><path d="M6 3h8l5 5v13H6z"></path><path d="M9 13h7M9 17h5"></path></svg>
+        <span><b>Full technical report</b><span>Every finding with reproduction steps, evidence, CVSS reasoning and a named owner for the fix.</span><em>PDF · 48 pp</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+        <span><b>Findings register</b><span>The same findings as a spreadsheet: severity, status, retest date, owner. Drops into your tracker.</span><em>CSV + XLSX</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><path d="M12 3v18M5 8l7-5 7 5v8l-7 5-7-5z"></path></svg>
+        <span><b>Forensic case timeline</b><span>A redacted incident reconstructed hour by hour, with the custody record and hashes intact.</span><em>PDF · 14 pp</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg>
+        <span><b>Restore test certificate</b><span>A year of verified restores: workload, size, elapsed time, verify result, and the one failure with its remediation.</span><em>PDF · 3 pp</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><rect x="4" y="4" width="16" height="16"></rect><path d="M9 12h6"></path></svg>
+        <span><b>Vault seal attestation</b><span>Object-lock mode, retention, regions, and who holds the keys. The document auditors actually ask for.</span><em>PDF · 2 pp</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><path d="M16 4h2v16H6V4h2"></path><rect x="9" y="2" width="6" height="4"></rect></svg>
+        <span><b>Rules of engagement template</b><span>The scope, stop conditions and authorisations we sign before touching anything.</span><em>DOCX · 6 pp</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><path d="M4 17l6-6 4 4 6-8"></path></svg>
+        <span><b>Regression tests</b><span>Failing tests written for two real findings, ready to drop into your CI and prove the fix holds.</span><em>ZIP</em></span>
+      </div>
+      <div class="packitem">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.5"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>
+        <span><b>Compliance mapping</b><span>Each control mapped to SOC 2, ISO 27001, GDPR Article 32 and NIS2, with the evidence that satisfies it.</span><em>PDF · 11 pp</em></span>
+      </div>
+    </div>
+    <div style="display:flex;gap:var(--space-2);margin-top:calc(1.5*var(--leading));flex-wrap:wrap;align-items:center">
+      <input class="input" type="email" placeholder="you@company.com" aria-label="Work email for the sample pack" style="max-width:280px">
+      <button type="button" class="btn btn-primary frame" data-pack="">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        Send me the pack
+      </button>
+      <span class="mono" style="font-size:10.5px;letter-spacing:.1em;color:color-mix(in srgb,var(--color-text) 58%,transparent)">NO CALL REQUIRED · ENCRYPTED ON REQUEST</span>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="authback" id="authback">
+  <div class="authcard frame">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <aside class="authside">
+      <span class="kicker" style="color:var(--color-accent-300)">Client portal</span>
+      <hr class="crule">
+      <div style="font-family:var(--font-heading);font-weight:600;font-size:26px;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;position:relative;z-index:1">Live estate feed</div>
+      <div style="margin-top:var(--leading);display:flex;flex-direction:column;gap:5px">
+        <div class="tl">04:12  restore drill complete · 34m 08s · PASS</div>
+        <div class="tl">04:19  finding BX-2291-004 raised · CRITICAL</div>
+        <div class="tl">04:20  client notified · D. Imrie, phone + portal</div>
+        <div class="tl">06:03  vault seal verified · 2 regions in sync</div>
+        <div class="tl">09:41  patch deployed by client · retest queued</div>
+        <div class="tl">14:14  BX-2291-004 closed · evidence archived</div>
+      </div>
+      <div class="tl" style="margin-top:auto;padding-top:var(--leading);opacity:.6">Session is logged and attributed. Vault access requires a second approver.</div>
+    </aside>
+    <div class="authbody">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3)">
+        <div>
+          <span class="kicker" style="margin-bottom:6px" id="authlabel">Step 1 of 2 · credentials</span>
+          <h3 class="h3" style="font-size:26px" id="authtitle">Sign in</h3>
+        </div>
+        <button type="button" class="btn btn-secondary btn-icon" aria-label="Close" data-auth-close="">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+      </div>
+
+      <div class="authstep on" data-step="creds">
+        <div class="field"><label for="au-email">Work email</label><input class="input" id="au-email" type="email" placeholder="you@company.com"></div>
+        <div class="field"><label for="au-pass">Password</label><input class="input" id="au-pass" type="password" placeholder="••••••••••••"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap">
+          <label class="radio"><input type="radio" name="trust"><span class="dot"></span>Trust this device for 30 days</label>
+          <a href="#contact" data-auth-close="">Lost your key?</a>
+        </div>
+        <button type="button" class="btn btn-primary btn-block frame" data-auth-next="2fa">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Continue
+        </button>
+        <div style="display:flex;align-items:center;gap:var(--half)">
+          <span style="flex:1;height:1px;background:var(--color-divider)"></span>
+          <span class="mono" style="font-size:10px;letter-spacing:.14em;opacity:.55">OR</span>
+          <span style="flex:1;height:1px;background:var(--color-divider)"></span>
+        </div>
+        <button type="button" class="btn btn-secondary btn-block" data-auth-next="2fa">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="4"></circle><path d="M13 13l7 7M17 17l2-2"></path></svg>
+          Sign in with a passkey
+        </button>
+      </div>
+
+      <div class="authstep" data-step="2fa">
+        <p class="body" style="font-size:14px">Enter the six-digit code from your authenticator. Codes rotate every thirty seconds and are bound to this account.</p>
+        <div class="codegrid">
+          <input class="mono" maxlength="1" aria-label="Digit 1" value="4">
+          <input class="mono" maxlength="1" aria-label="Digit 2" value="1">
+          <input class="mono" maxlength="1" aria-label="Digit 3" value="8">
+          <input class="mono" maxlength="1" aria-label="Digit 4" value="0">
+          <input class="mono" maxlength="1" aria-label="Digit 5">
+          <input class="mono" maxlength="1" aria-label="Digit 6">
+        </div>
+        <div class="mono" style="font-size:11px;letter-spacing:.1em;color:var(--color-accent-700)">CODE EXPIRES IN 00:<span id="authclock">27</span></div>
+        <button type="button" class="btn btn-primary btn-block frame" data-auth-next="done">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Verify and open portal
+        </button>
+        <button type="button" class="btn btn-ghost" data-auth-next="creds">Use a different account</button>
+      </div>
+
+      <div class="authstep" data-step="done">
+        <div class="pill pass" style="align-self:flex-start">Authenticated</div>
+        <h3 class="h3" style="font-size:22px">Welcome back, Dana</h3>
+        <p class="body" style="font-size:14px">Your estate is green: last verified restore 04:12 this morning in 34 minutes, vault sealed, 318 endpoints reporting. One critical finding from BX-2291 awaits your sign-off.</p>
+        <button type="button" class="btn btn-primary frame" style="align-self:flex-start" data-auth-close="">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          Go to the estate view
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas class="bits" id="bits" aria-hidden="true"></canvas>
+
+<div id="toast"></div>
+
+<div class="mockctl" id="mockctl">
+  <span>Backdrop</span>
+  <select id="bgmode" aria-label="Steel band backdrop">
+    <option value="photo">Photo</option>
+    <option value="motion">Generated motion</option>
+    <option value="video">Video</option>
+    <option value="grid">Grid</option>
+    <option value="hatch">Hatch</option>
+    <option value="dots">Dots</option>
+    <option value="rules">Rules</option>
+    <option value="scan">Scanlines</option>
+    <option value="plain">Plain steel</option>
+  </select>
+  <span>Motif</span>
+  <select id="motifmode" aria-label="Ambient motif">
+    <option value="bits">Ones and zeros</option>
+    <option value="off">None</option>
+  </select>
+  <span>Paper</span>
+  <select id="papermode" aria-label="Light-section ground">
+    <option value="plain">Plain paper</option>
+    <option value="grid">Blueprint grid</option>
+    <option value="graph">Graph paper</option>
+    <option value="rules">Ruled lines</option>
+    <option value="tint">Warm grey tint</option>
+    <option value="alt">Alternating bands</option>
+  </select>
+  <button type="button" id="mockhide" aria-label="Hide these controls">Hide</button>
+</div>
+{% endblock %}

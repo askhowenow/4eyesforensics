@@ -6,6 +6,11 @@ class WebsiteTests(TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "4Eyes Forensics")
+        self.assertContains(response, "/static/website/css/site.css")
+        self.assertContains(response, "/static/website/js/main.js")
+        self.assertNotContains(response, "__bundler")
+        self.assertNotContains(response, "DecompressionStream")
+        self.assertNotContains(response, "URL.createObjectURL")
 
     def test_health_endpoint(self):
         response = self.client.get("/api/health/")
