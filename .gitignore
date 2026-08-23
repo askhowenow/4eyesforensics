@@ -31,6 +31,7 @@ staticfiles/
 
 # Local incoming reference build
 site_update/
+site_update_v2/
 
 # Terraform
 .terraform/

@@ -2,12 +2,19 @@ from django.test import TestCase
 
 
 class WebsiteTests(TestCase):
-    def test_home_serves_the_reference_artifact(self):
+    def test_home_serves_the_v2_django_page(self):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "4Eyes Forensics")
         self.assertContains(response, "/static/website/css/site.css")
         self.assertContains(response, "/static/website/js/main.js")
+        self.assertContains(response, "Rejuvonix")
+        self.assertContains(response, "Premojin")
+        self.assertContains(response, "Quantyfied")
+        self.assertContains(response, "1 (876) 454-6883")
+        self.assertContains(response, "tel:+18764546883")
+        self.assertContains(response, 'id="scope"')
+        self.assertContains(response, "data-quote")
         self.assertNotContains(response, "__bundler")
         self.assertNotContains(response, "DecompressionStream")
         self.assertNotContains(response, "URL.createObjectURL")

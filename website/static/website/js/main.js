@@ -21,7 +21,14 @@
     });
   });
   $$("[data-quote]").forEach(function (b) {
-    b.addEventListener("click", function () { flash("Quote request logged, a scoped, fixed price comes back within one business day"); });
+    b.addEventListener("click", function () {
+      var target = document.getElementById("scope");
+      if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 76, behavior: "smooth" });
+      window.setTimeout(function () {
+        var start = document.querySelector("[data-scope-open]");
+        if (start) start.click();
+      }, 300);
+    });
   });
   $$("[data-pack]").forEach(function (b) {
     b.addEventListener("click", function () { closePack(); flash("Sample pack on its way, five documents, encrypted if you asked"); });
