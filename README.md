@@ -1,6 +1,6 @@
 # 4Eyes Forensics
 
-This project wraps the supplied `4eyes-forensics.html` artifact in a minimal Django application. The artifact remains the source of truth for the page's visual design, content, and client-side interactions.
+4Eyes Forensics is a Django application serving a maintained, server-rendered frontend. The original bundled prototype is preserved under `reference/`; incoming design builds are assessed and integrated into Django rather than deployed as opaque artifacts.
 
 ## Run locally
 
@@ -13,12 +13,10 @@ python manage.py runserver
 
 Open <http://127.0.0.1:8000/>.
 
-The Django view intentionally renders the artifact directly so its bundled runtime, inline styles, SVGs, and JavaScript remain unchanged.
-
 ## Project structure
 
 - `config/` — Django settings, URLs, and WSGI entrypoint
-- `website/` — page and health endpoint views/tests
+- `website/` — homepage, responsible-disclosure page, static assets, and health endpoint views/tests
 - `reference/` — preserved original HTML prototype
 - `infra/terraform/` — isolated AWS production origin
 - `.github/workflows/deploy.yml` — test, package, and SSM deployment pipeline
@@ -43,4 +41,4 @@ After Terraform apply, configure these production repository variables for the w
 - `ARTIFACT_BUCKET` — Terraform `artifact_bucket` output
 - `EC2_INSTANCE_ID` — Terraform `instance_id` output
 
-The production domain is `4eyesforensics.com` (also allowing `www.4eyesforensics.com`). The liveness endpoint is `/api/health/` and returns `{"status":"ok"}` without system details. Cloudflare is intentionally not configured by this project; create the DNS record manually and point it at the stable AWS origin hostname.
+The production domain is `4eyesforensics.com` (also allowing `www.4eyesforensics.com`). The liveness endpoint is `/api/health/` and returns `{"status":"ok"}` without system details. Responsible disclosure is available at `/responsible-disclosure/`, and the RFC 9116 file is served at `/.well-known/security.txt`. Cloudflare is intentionally not configured by this project; create DNS records manually and point them at the stable AWS origin hostname.

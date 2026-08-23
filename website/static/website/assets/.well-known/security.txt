@@ -1,0 +1,18 @@
+Contact: mailto:secure@4eyesforensics.com
+Contact: https://4eyesforensics.com/responsible-disclosure
+Encryption: https://4eyesforensics.com/pgp-key.asc
+Preferred-Languages: en
+Canonical: https://4eyesforensics.com/.well-known/security.txt
+Policy: https://4eyesforensics.com/responsible-disclosure
+Expires: 2027-08-22T23:59:59.000Z
+
+# OpenPGP key for secure@4eyesforensics.com
+# Key type:    ed25519 (Curve25519)
+# Key ID:      0x82591CDEE1823A7B
+# Created:     2026-08-23
+# Key expires: 2028-08-22
+# Fingerprint: 2C63 630E 8E0F 17E4 EFC2  FAF2 8259 1CDE E182 3A7B
+#
+# Verify this fingerprint against https://4eyesforensics.com/pgp-key.asc
+# or by telephone before first use. Do not rely on a fingerprint quoted
+# in an email, a document, or a signature block.

@@ -29,6 +29,9 @@ staticfiles/
 # Logs
 *.log
 
+# Local incoming reference build
+site_update/
+
 # Terraform
 .terraform/
 *.tfstate

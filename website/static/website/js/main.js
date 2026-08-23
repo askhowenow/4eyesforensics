@@ -24,10 +24,41 @@
     b.addEventListener("click", function () { flash("Quote request logged, a scoped, fixed price comes back within one business day"); });
   });
   $$("[data-pack]").forEach(function (b) {
-    b.addEventListener("click", function () { closePack(); flash("Sample pack on its way, nine documents, encrypted if you asked"); });
+    b.addEventListener("click", function () { closePack(); flash("Sample pack on its way, five documents, encrypted if you asked"); });
   });
+  var closeSec = $("#bookform") ? $("#bookform").closest(".close") : null, BOOK_KEY = "fe_book_request";
+  function paintBook(at) {
+    var d = new Date(at);
+    $("#bookwhen").textContent = isNaN(d) ? "REQUEST LOGGED" : "LOGGED " +
+      d.toLocaleDateString(undefined, { day: "numeric", month: "short" }).toUpperCase() + " · " +
+      d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+    if (closeSec) closeSec.classList.add("sent");
+  }
+  try {
+    var savedBook = localStorage.getItem(BOOK_KEY);
+    if (savedBook) paintBook(Number(savedBook));
+  } catch (e) {}
   $$("[data-book]").forEach(function (b) {
-    b.addEventListener("click", function () { flash("Review request logged, an engineer replies within one business day"); });
+    b.addEventListener("click", function () {
+      var el = $("#bk-mail"), v = (el.value || "").trim(), warn = $("#bookwarn");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
+        el.classList.add("bad"); warn.classList.add("bad");
+        warn.textContent = "ENTER A WORK EMAIL SO WE CAN REPLY";
+        el.focus();
+        return;
+      }
+      el.classList.remove("bad"); warn.classList.remove("bad");
+      var at = Date.now();
+      try { localStorage.setItem(BOOK_KEY, String(at)); } catch (e) {}
+      paintBook(at);
+      flash("Review request received, an engineer replies within one business day");
+    });
+  });
+  $$("[data-book-reset]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      try { localStorage.removeItem(BOOK_KEY); } catch (e) {}
+      if (closeSec) closeSec.classList.remove("sent");
+    });
   });
 
   /* hero terminal */
@@ -35,9 +66,9 @@
     ["$ nmap -sV -Pn --top-ports 1000 -oA recon/bx-2291 203.0.113.0/24", "dim"],
     ["Nmap done: 256 IP addresses (38 hosts up) scanned in 91.42 seconds", ""],
     ["$ nuclei -l targets.txt -t http/exposures -severity critical,high", "dim"],
-    ["[api-tenant-idor] [http] [critical] https://app.example/api/v2/exports?org=8841", "hit"],
-    ["[dns-subdomain-takeover] [http] [high] https://staging.example (no auth)", "warn"],
-    ["$ echo | openssl s_client -connect mail.example:443 2>/dev/null \\", "dim"],
+    ["[api-tenant-idor] [http] [critical] https://app.example.com/api/v2/exports?org=8841", "hit"],
+    ["[dns-subdomain-takeover] [http] [high] https://staging.example.com (no auth)", "warn"],
+    ["$ echo | openssl s_client -connect mail.example.com:443 2>/dev/null \\", "dim"],
     ["    | openssl x509 -noout -enddate", "dim"],
     ["notAfter=Sep  4 09:14:22 2026 GMT   # 13 days", "warn"],
     ["$ restic -r s3:s3.eu-west-2.amazonaws.com/4e-vault snapshots --latest 1", "dim"],
@@ -48,7 +79,7 @@
     ["restored 4.214 TiB in 34m08s   verify: 0 errors", "ok"]
   ];
   var STAGE = [
-    [0, "RECON", "Mapping every host the internet can reach in the authorised range."],
+    [0, "RECON", "Mapping every host the internet can reach in the authorized range."],
     [2, "EXPLOIT", "Testing what those hosts actually expose, access control first."],
     [5, "HYGIENE", "Checking certificate expiry before it takes mail down on a Friday."],
     [8, "VAULT", "Confirming the newest immutable copy exists and its lock is real."],
@@ -82,11 +113,11 @@
     paint();
   }, 28);
 
-  /* pricing: estate size → recommended column */
+  /* pricing: environment size → recommended column */
   var NOTES = [
     "TYPICAL QUOTE RETURNED IN UNDER 24 H",
-    "MOST ESTATES THIS SIZE TAKE FORTIFY",
-    "PRICED AS A PROGRAMME, WITH CREDITS"
+    "MOST AT THIS SIZE TAKE FORTIFY",
+    "PRICED AS A PROGRAM, WITH CREDITS"
   ];
   var RECO = [0, 1, 2];
   function setSize(i) {
@@ -185,26 +216,8 @@
     else if (motionOn) { rafId = requestAnimationFrame(frame); }
   });
 
-  /* backdrop controls (review chrome, delete .mockctl and this block to ship) */
-  var bands = $$(".steel"), videos = $$(".steelvideo video");
-  var modeSel = $("#bgmode");
-  function hasVideo() { return videos.some(function (v) { return !!v.src; }); }
-  function setMode(m) {
-    if (m === "video" && !hasVideo()) { m = "motion"; if (modeSel) modeSel.value = m; }
-    bands.forEach(function (b) { b.setAttribute("data-bg", m); });
-    setMotion(m === "motion");
-    videos.forEach(function (v) {
-      if (m === "video" && v.src) { v.play().catch(function () {}); } else { v.pause(); }
-    });
-    try { localStorage.setItem("bastion-bg", m); } catch (e) {}
-  }
-  try {
-    var saved = localStorage.getItem("bastion-bg");
-    if (saved) { modeSel.value = saved; setMode(saved); }
-  } catch (e) {}
-  modeSel.addEventListener("change", function () { setMode(modeSel.value); });
   /* brand mark: hover plays the animation, click opens it large */
-  var logoBack = $("#logoback"), logoStage = $(".logostage"), GIF = (document.getElementById("gifsrc") || {}).src || "assets/4eyes-animation-loop.gif";
+  var logoBack = $("#logoback"), logoStage = $(".logostage"), GIF = (document.getElementById("gifsrc") || {}).src || "/static/website/assets/4eyes-animation-loop.gif";
 
   // a GIF only restarts when a fresh element decodes it, so swap in a new <img> each time
   function playInto(host, cls) {
@@ -382,23 +395,10 @@
     $$(".statnum, .hero .meta b, .storystat b, .bospec div b").forEach(function (el) { io.observe(el); });
   }
 
-  var paperSel = $("#papermode");
-  function setPaper(p, persist) {
-    document.body.setAttribute("data-paper", p);
-    if (persist) { try { localStorage.setItem("bastion-paper", p); localStorage.setItem("bastion-paper-set", "1"); } catch (e) {} }
-  }
-  var sp = null;
-  try { sp = localStorage.getItem("bastion-paper-set") ? localStorage.getItem("bastion-paper") : null; } catch (e) {}
-  paperSel.value = sp || "plain";
-  setPaper(paperSel.value, false);
-  paperSel.addEventListener("change", function () { setPaper(paperSel.value, true); });
-
-  $("#mockhide").addEventListener("click", function () { $("#mockctl").style.display = "none"; });
-
   /* service breakouts */
   var SVC = {
     pentest: { theme: "#7d3b41", tag: "Service 01 · security", title: "Penetration testing", spec: [["5–15 days","Typical engagement"],["Free","Retest until closed"],["AI + human","How we test"]],
-      lede: "Scoped to what your business actually needs tested, then run as a pair: AI does the breadth (enumerating the estate, reading whole codebases, generating and triaging candidate attack paths at a speed no team can match) and a human operator does the judgement, chaining what chains and proving impact. Neither half works alone.",
+      lede: "Scoped to what your business actually needs tested, then run as a pair: AI does the breadth (enumerating the environment, reading whole codebases, generating and triaging candidate attack paths at a speed no team can match) and a human operator does the judgement, chaining what chains and proving impact. Neither half works alone.",
       scope: ["Scoping driven by your risk, not a fixed checklist","AI-assisted enumeration and code-path analysis at breadth","Human exploitation of web, API and external hosts","Authenticated multi-tenant access-control testing","Chaining: low findings combined into a real breach path"],
       deliver: ["Findings with reproduction steps and business impact","A fix written for the engineer, not the auditor","Failing regression tests you can drop into CI","Executive brief for the board, one page"],
       runs: ["Scope, targets and rules of engagement signed first","Every AI-surfaced candidate verified by hand before it is reported","Criticals phoned through the hour we confirm them","Debrief call with the operators who did the work","Retest booked before the report lands"] },
@@ -408,32 +408,37 @@
       deliver: ["Attack narrative with timestamps against your alerts","Detection gaps ranked by what closes the most paths","Awareness pack built from your own campaign results","Second run to measure the delta, not just assert it"],
       runs: ["Rules of engagement and a named trusted agent","Stop conditions written before we start","Purple debrief with defenders in the room","Repeat run quarterly or annually as agreed"] },
     backup: { theme: "#1f6b6b", tag: "Service 04 · backup", title: "Continuous backup", spec: [["15 min","Recovery point objective"],["Unlimited","Version history"],["Afternoon","Typical rollout"]],
-      lede: "Block-level change capture every fifteen minutes across servers, laptops, SaaS and databases. No backup window, no overnight job that quietly failed on Thursday and nobody noticed until March.",
-      scope: ["Windows, macOS and Linux endpoints and servers","Microsoft 365, Google Workspace and Salesforce","Postgres, MySQL, SQL Server with log shipping","VMware, Hyper-V and cloud volumes"],
+      lede: "Veeam is what we build on by default, because it is what we run best and what our restore numbers are measured on. If you have already invested in Rubrik, Cohesity, Commvault or Acronis, we will run that instead rather than sell you a migration you do not need. Either way we design it, operate it and prove it, so you get enterprise backup without hiring anyone to run it. Block-level change capture every fifteen minutes across servers, laptops, SaaS and databases. No backup window, no overnight job that quietly failed on Thursday and nobody noticed until March.",
+      scope: ["Veeam agents on Windows, macOS and Linux, or your incumbent platform","Microsoft 365, Google Workspace and Salesforce","Postgres, MySQL, SQL Server with log shipping","VMware, Hyper-V, Proxmox and cloud volumes, agentless"],
       deliver: ["A copy of every protected workload, current to 15 minutes","Self-service restore console for your own team","Daily coverage report naming anything not protected","Alert when a device stops reporting, not a silent gap"],
       runs: ["Agents pushed from your MDM in an afternoon","First full copy seeds over the wire or on an appliance","Incrementals every quarter hour, bandwidth capped","Coverage reconciled against your asset register monthly"] },
     vault: { theme: "#3f6b4a", tag: "Service 05 · backup", title: "Immutable ransomware vault", spec: [["7 years","Object-lock retention"],["2 regions","Synchronous copies"],["COMPLIANCE","Lock mode"]],
-      lede: "Snapshots land in object-lock storage in a tenancy nobody can reach into: not us, not your administrators, not an attacker holding your credentials. Retention runs out or it does not; there is no early delete.",
-      scope: ["Write-once storage in COMPLIANCE mode, not governance","Keys held in a separate custody domain from the data","Two geographic regions kept in sync","Append-only audit line for every read and every access"],
+      lede: "A hardened repository plus object-lock cloud storage in a tenancy nobody can reach into: not us, not your administrators, not an attacker holding your credentials. Retention runs out or it does not; there is no early delete.",
+      scope: ["Write-once object lock in COMPLIANCE mode, not governance","Keys held in a separate custody domain from the data","Two geographic regions kept in sync","Append-only audit line for every read and every access"],
       deliver: ["A copy that survives full domain compromise","Proof of seal state you can hand to an auditor","Access log naming every human who touched it","Second-approver control before any deletion request"],
       runs: ["Retention and residency agreed in the contract","Seal state verified daily and reported","No 4Eyes operator can shorten retention","Exit: your data exported in an open format, no fee"] },
+    harden: { theme: "#4a6b3f", tag: "Service 07 · security", title: "Linux hardening & custom scripting", spec: [["CIS / STIG","Benchmarks applied"],["Before / after","Scored both ways"],["Yours to keep","Automation handed over"]],
+      lede: "We write the tooling as well as the policy. Most Linux fleets are one default away from a bad afternoon: password SSH left on, sudo without logging, a kernel parameter nobody set, auditd installed and never configured. We harden them to CIS benchmark or DISA STIG, prove the score moved, and hand you the automation so the next host you build comes up hardened instead of drifting back.",
+      scope: ["CIS benchmark or STIG assessment of the current fleet","Kernel and sysctl, SSH, PAM, sudo and file integrity","SELinux or AppArmor moved from permissive to enforcing","Patch policy, package pinning and unattended upgrades","Container and Kubernetes node baselines where you run them","Custom scripting: onboarding, log shipping, backup pre and post jobs, evidence collection"],
+      deliver: ["A scored benchmark report, before and after, per host class","Bash, Python and Ansible written for your fleet, yours to keep","Documented exceptions with the business reason recorded","Scheduled drift checks that mail or ticket when a host changes"],
+      runs: ["Assess first, on a copy, so nothing in production moves blind","Changes staged, reviewed by a second engineer, then applied","Rollback written before each change, not after","Re-benchmarked quarterly, or on every image rebuild"] },
     dfir: { theme: "#3f4a7a", tag: "Service 02 · forensics", title: "Digital forensics & incident response", spec: [["< 4 min","Incident line answer"],["Two examiners","On every finding"],["Court-ready","Report standard"]],
       lede: "The one service you hope never to buy. We contain first, preserve second and explain third: an account of what was accessed, what left, and what did not, built from evidence handled so that an insurer, a regulator or opposing counsel cannot pick it apart.",
       scope: ["Containment and eradication alongside your team","Forensic imaging with hashes and chain of custody","Memory, disk, cloud audit log and identity timeline analysis","Scoping what was exfiltrated versus merely accessed"],
-      deliver: ["A defensible timeline of the intrusion, hour by hour","Indicators of compromise handed to whoever runs your monitoring","Findings written for insurers, regulators and counsel","Notification support for GDPR and sector deadlines"],
+      deliver: ["A defensible timeline of the intrusion, hour by hour","Indicators of compromise handed to whoever runs your monitoring","Findings written for insurers, regulators and counsel","Notification support for state breach laws, HIPAA and the Jamaica DPA"],
       runs: ["Emergency engagement inside four hours, retainer or not","Every finding reviewed by a second examiner before it ships","Evidence retained under your instruction, released on request","Post-incident hardening plan handed to the engineers who own it"] },
-    training: { theme: "#6b5a2f", tag: "Service 07 · people", title: "Security awareness training", spec: [["Quarterly","Or on every hire"],["Your own data","Not stock scenarios"],["Click rate","Measured before and after"]],
+    training: { theme: "#6b5a2f", tag: "Service 08 · people", title: "Security awareness training", spec: [["Quarterly","Or on every hire"],["Your own data","Not stock scenarios"],["Click rate","Measured before and after"]],
       lede: "Most awareness training teaches people to fear a generic email nobody sent them. Ours is written from the pretexts that got through your door and the findings our testers walked in with, so staff recognise the specific trick aimed at their role, and you get a number that moves rather than a completion certificate.",
       scope: ["Baseline phishing simulation before any teaching","Sessions built from your real findings and campaigns","Role-specific tracks for finance, IT, reception and leadership","Tabletop exercise for the people who make the call in an incident"],
       deliver: ["Click and report rates by department, before and after","Short sessions staff will actually finish, live or recorded","Reporting habits that feed our examiners a usable alert","Board summary showing where human risk actually sits"],
-      runs: ["Baseline first, so the improvement is measurable","New starters trained in their first fortnight, automatically","Repeat simulation each quarter with fresh pretexts","No naming and shaming: reporting is rewarded, clicking is taught"] },
+      runs: ["Baseline first, so the improvement is measurable","New starters trained in their first two weeks, automatically","Repeat simulation each quarter with fresh pretexts","No naming and shaming: reporting is rewarded, clicking is taught"] },
     dr: { theme: "#416180", tag: "Service 06 · backup", title: "Disaster recovery & compliance", spec: [["From 20 min","Recovery time objective"],["Monthly","Verified restore test"],["Quarterly","Evidence pack"]],
-      lede: "Runbooks that boot your estate in dependency order into standby compute, rehearsed monthly and timed. The plan is a fact with a number on it, not a document somebody wrote in 2021.",
+      lede: "Runbooks that boot your systems in dependency order into standby compute, rehearsed monthly and timed. The plan is a fact with a number on it, not a document somebody wrote in 2021.",
       scope: ["Dependency mapping and boot-order runbooks","Standby compute reserved for orchestrated failover","Monthly restore test on real workloads, timed","Evidence generated from what actually happened"],
-      deliver: ["A contractual RTO you can defend to a regulator","Timed restore results, pass or fail, every month","SOC 2, ISO 27001, HIPAA and GDPR evidence packs","Board-ready summary of exposure and recovery posture"],
+      deliver: ["A contractual RTO you can defend to a regulator","Timed restore results, pass or fail, every month","Evidence packs mapped to SOC 2, ISO 27001, HIPAA and PCI DSS","Board-ready summary of exposure and recovery posture"],
       runs: ["One button, ordered start-up, live clock on the recovery","Failed test is our incident to close, not yours to find","Drills your own team can run without us present","Named incident commander on the top tier"] }
   };
-  var boBox = $("#breakout"), boCards = $$(".svc"), boOpen = null;
+  var boBox = $("#breakout"), boCards = $$(".svc"), boOpen = null, boGrid = $(".svcgrid");
   function fillList(id, items) {
     var ul = $(id); ul.innerHTML = "";
     items.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
@@ -457,11 +462,33 @@
       sp.appendChild(w);
     });
     boBox.style.setProperty("--svc", d.theme || "var(--color-accent)");
+    // drop the panel into the grid directly beneath the card that was clicked,
+    // so the remaining services move aside instead of sitting above it
+    // measure the natural grid with the panel out of flow, so the row is the real row
+    boBox.classList.remove("on");
+    var top = card.offsetTop;
+    var row = boCards.filter(function (c) { return Math.abs(c.offsetTop - top) < 8; });
+    var last = row[row.length - 1];
+    // the panel goes under the whole row: the cards beside it stay put and fade
+    if (last.nextSibling !== boBox) boGrid.insertBefore(boBox, last.nextSibling);
+    boCards.forEach(function (c) { c.classList.toggle("peer", c !== card && row.indexOf(c) > -1); });
     boBox.classList.add("on");
+    boGrid.classList.add("focus");
     boOpen = key;
+    requestAnimationFrame(function () {
+      var r = boBox.getBoundingClientRect();
+      var pad = 96;
+      if (r.bottom > innerHeight) {
+        window.scrollBy({ top: Math.min(r.top - pad, r.bottom - innerHeight + 24), behavior: "smooth" });
+      } else if (r.top < pad) {
+        window.scrollBy({ top: r.top - pad, behavior: "smooth" });
+      }
+    });
   }
   function hideBreakout() {
     boBox.classList.remove("on");
+    boGrid.classList.remove("focus");
+    boCards.forEach(function (c) { c.classList.remove("peer"); });
     boCards.forEach(function (c) { c.setAttribute("aria-expanded", "false"); });
     boOpen = null;
   }
@@ -469,20 +496,96 @@
     var key = card.getAttribute("data-svc");
     function toggle() {
       if (boOpen === key) { hideBreakout(); card.focus(); }
-      else { showBreakout(key, card); boBox.scrollIntoView ? null : null; }
+      else { showBreakout(key, card); }
     }
     card.addEventListener("click", toggle);
     card.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
     });
   });
-  $("#bo-close").addEventListener("click", hideBreakout);
+  $("#bo-close").addEventListener("click", function () { hideBreakout(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && boOpen) hideBreakout(); });
+
+  $$(".chip").forEach(function (c) {
+    c.addEventListener("click", function () {
+      var on = c.getAttribute("aria-pressed") === "true";
+      c.setAttribute("aria-pressed", on ? "false" : "true");
+    });
+  });
+  var scopeWrap = $(".scopewrap"), SCOPE_KEY = "fe_scope_request";
+  function paintScope(rec) {
+    $("#scoperef").textContent = rec.ref;
+    var d = new Date(rec.at);
+    $("#scopewhen").textContent = isNaN(d) ? "just now" :
+      d.toLocaleDateString(undefined, { day: "numeric", month: "short" }) + " · " +
+      d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+    scopeWrap.classList.add("sent");
+    openScope(false);
+  }
+  try {
+    var saved = localStorage.getItem(SCOPE_KEY);
+    if (saved) paintScope(JSON.parse(saved));
+  } catch (e) {}
+  function openScope(focus) {
+    $("#scopegate").classList.add("gone");
+    $("#scopewrap").classList.add("open");
+    if (focus) { var f = $("#sc-co"); if (f) f.focus(); }
+  }
+  $$("[data-scope-open]").forEach(function (b) {
+    b.addEventListener("click", function () { openScope(true); });
+  });
+  $$("[data-scope-close]").forEach(function (b) {
+    b.addEventListener("click", function () { $("#scopewrap").classList.remove("open"); $("#scopegate").classList.remove("gone"); });
+  });
+  function validScope() {
+    var need = [["#sc-co", "text"], ["#sc-name", "text"], ["#sc-mail", "email"], ["#sc-tel", "text"]];
+    var bad = [];
+    need.forEach(function (pair) {
+      var el = $(pair[0]), v = (el.value || "").trim();
+      var ok = pair[1] === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) : v.length > 1;
+      el.classList.toggle("bad", !ok);
+      if (el.closest(".field")) el.closest(".field").classList.toggle("bad", !ok);
+      if (!ok) bad.push(el);
+    });
+    var svcPicked = $$(".fgrid .chiprow")[0].querySelectorAll('[aria-pressed="true"]').length > 0;
+    var warn = $("#scopewarn");
+    if (bad.length || !svcPicked) {
+      warn.classList.add("bad");
+      warn.textContent = bad.length
+        ? "COMPANY, NAME, WORK EMAIL AND A DIRECT PHONE ARE NEEDED"
+        : "PICK AT LEAST ONE SERVICE, OR NOT SURE YET";
+      if (bad.length) bad[0].focus();
+      return false;
+    }
+    warn.classList.remove("bad");
+    warn.textContent = "REPLY INSIDE THE HOUR · NO SALES SEQUENCE";
+    return true;
+  }
+  $$("[data-scope]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!validScope()) return;
+      var rec = { ref: "4EF-SCOPE-" + String(Math.floor(1000 + Math.random() * 8999)), at: Date.now() };
+      try { localStorage.setItem(SCOPE_KEY, JSON.stringify(rec)); } catch (e) {}
+      paintScope(rec);
+      flash("Request received. We will call the number you gave to open the encrypted session");
+    });
+  });
+  $$("[data-scope-reset]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      try { localStorage.setItem(SCOPE_KEY, ""); localStorage.removeItem(SCOPE_KEY); } catch (e) {}
+      scopeWrap.classList.remove("sent");
+      $("#scopewrap").classList.remove("open");
+      $("#scopegate").classList.remove("gone");
+    });
+  });
 
   /* client portal modal */
   var back = $("#authback");
   var LABELS = {
     creds: ["Step 1 of 2 · credentials", "Sign in"],
     "2fa": ["Step 2 of 2 · second factor", "Verify it's you"],
+    signup: ["Activation · new account", "Activate your access"],
+    pending: ["Activation pending", "One call away"],
     done: ["Session open", "You're in"]
   };
   function step(name) {
@@ -495,7 +598,30 @@
   $$("[data-auth-open]").forEach(function (b) { b.addEventListener("click", openAuth); });
   $$("[data-auth-close]").forEach(function (b) { b.addEventListener("click", closeAuth); });
   $$("[data-auth-next]").forEach(function (b) {
-    b.addEventListener("click", function () { step(b.getAttribute("data-auth-next")); });
+    b.addEventListener("click", function (e) { e.preventDefault(); step(b.getAttribute("data-auth-next")); });
+  });
+  $$("[data-auth-signup]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var need = [["#su-ref", "text"], ["#su-mail", "email"], ["#su-name", "text"], ["#su-tel", "text"]];
+      var bad = [];
+      need.forEach(function (p) {
+        var el = $(p[0]), v = (el.value || "").trim();
+        var ok = p[1] === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) : v.length > 1;
+        el.classList.toggle("bad", !ok);
+        if (!ok) bad.push(el);
+      });
+      var warn = $("#suwarn"), terms = $("#su-terms").checked;
+      if (bad.length || !terms) {
+        warn.classList.add("bad");
+        warn.textContent = bad.length ? "REFERENCE, EMAIL, NAME AND PHONE ARE ALL NEEDED" : "CONFIRM YOU ARE AUTHORIZED TO RECEIVE FINDINGS";
+        if (bad.length) bad[0].focus();
+        return;
+      }
+      warn.classList.remove("bad");
+      warn.textContent = "WE CALL TO VERIFY BEFORE ANY ACCOUNT OPENS";
+      step("pending");
+      flash("Activation requested. We verify against the engagement record and call you");
+    });
   });
   back.addEventListener("click", function (e) { if (e.target === back) closeAuth(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeAuth(); });

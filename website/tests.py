@@ -12,6 +12,11 @@ class WebsiteTests(TestCase):
         self.assertNotContains(response, "DecompressionStream")
         self.assertNotContains(response, "URL.createObjectURL")
 
+    def test_responsible_disclosure_page(self):
+        response = self.client.get("/responsible-disclosure/")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Responsible disclosure")
+
     def test_health_endpoint(self):
         response = self.client.get("/api/health/")
         self.assertEqual(response.status_code, 200)

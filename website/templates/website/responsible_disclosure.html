@@ -1,0 +1,218 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block extra_css %}<link rel="stylesheet" href="{% static 'website/css/disclosure.css' %}">{% endblock %}
+{% block content %}
+<header class="bar">
+  <a class="brand" href="{% url 'home' %}"><img src="{% static 'website/assets/logo-mark-512.png' %}" alt="" width="512" height="512" />4Eyes Forensics</a>
+  <a class="btn btn-secondary" href="{% url 'home' %}">Back to the site</a>
+</header>
+
+<div class="wrap">
+  <span class="kicker">Responsible disclosure policy</span>
+  <hr class="crule" />
+  <h1 class="h1">Found something<br />in our systems?</h1>
+  <p class="lede">We test other people's systems for a living, so it would be absurd to pretend ours are perfect. If you have found a weakness in something we run, tell us. This page is the promise we make in return: an answer from a human, a decision you can hold us to, and no legal threat for acting in good faith.</p>
+</div>
+
+<section class="sect">
+  <div class="sla">
+    <div class="slacell">
+      <span class="kicker" style="margin-bottom:0">Acknowledgement</span>
+      <div class="slanum">1 day</div>
+      <div class="slalabel">A named engineer replies within one business day. Not an autoresponder.</div>
+    </div>
+    <div class="slacell">
+      <span class="kicker" style="margin-bottom:0">Triage decision</span>
+      <div class="slanum">5 days</div>
+      <div class="slalabel">In scope or out, with our reasoning, and a severity we will justify.</div>
+    </div>
+    <div class="slacell">
+      <span class="kicker" style="margin-bottom:0">Fix target</span>
+      <div class="slanum">90 days</div>
+      <div class="slalabel">Critical and high issues sooner. We will tell you if it will slip, and why.</div>
+    </div>
+    <div class="slacell">
+      <span class="kicker" style="margin-bottom:0">Credit</span>
+      <div class="slanum">Yours</div>
+      <div class="slalabel">Named on this page if you want it, anonymous if you prefer. Your choice, not ours.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" style="padding-top:0">
+  <span class="kicker">01 · Scope</span>
+  <hr class="crule" />
+  <h2 class="h2">What is ours to fix</h2>
+  <div class="twocol" style="margin-top:calc(1.5*var(--leading))">
+    <div class="frame card">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <span class="kicker" style="margin-bottom:0">In scope</span>
+      <ul class="list">
+        <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span><b>4eyesforensics.com</b> and any subdomain we operate</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>The client portal, including its authentication and session handling</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>Our one-time upload service and the links it issues</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>Our published OpenPGP key handling and this policy's own claims</span></li>
+        <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>Anything that could expose one client's data to another</span></li>
+      </ul>
+      <p class="body" style="font-size:13px;margin-top:var(--leading)">That last one we treat as critical by default. Tenant isolation is the finding we most often report to others; we would rather hear about ours from you than from a client.</p>
+    </div>
+    <div class="frame card no">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <span class="kicker" style="margin-bottom:0">Out of scope</span>
+      <ul class="list">
+        <li><i></i><span><b>Our clients' systems.</b> Never test them, under any circumstances</span></li>
+        <li><i></i><span>Third-party services we merely consume, report those to their owner</span></li>
+        <li><i></i><span>Denial of service, load testing, or anything degrading availability</span></li>
+        <li><i></i><span>Social engineering of our staff, suppliers or clients</span></li>
+        <li><i></i><span>Physical intrusion, or anything touching evidence in our custody</span></li>
+        <li><i></i><span>Scanner output with no demonstrated impact, and missing-header reports</span></li>
+      </ul>
+      <div class="warn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--sev-crit)" stroke-width="1.5" style="flex:none;margin-top:1px"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9L2.4 18a1.8 1.8 0 001.6 2.7h16a1.8 1.8 0 001.6-2.7L13.7 3.9a1.8 1.8 0 00-3.4 0z"></path></svg>
+        <p class="body" style="font-size:13px;margin:0">If you believe you have found an exposure belonging to one of our clients, <b>do not test it and do not tell anyone else</b>. Contact us and we will route it to them under their own disclosure process, with you credited.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect" style="padding-top:0">
+  <span class="kicker">02 · Rules</span>
+  <hr class="crule" />
+  <h2 class="h2">Good faith, defined</h2>
+  <p class="body" style="max-width:64ch;margin-top:var(--leading)">Vague safe-harbour language protects the company, not the researcher. So here is what we actually mean, in terms you can rely on.</p>
+  <div class="twocol" style="margin-top:calc(1.5*var(--leading))">
+    <div>
+      <div class="step">
+        <span class="n">01</span>
+        <div>
+          <h3 class="h3">Stop at proof</h3>
+          <p>Demonstrate the issue with the minimum access required, then stop. Do not pivot, escalate for its own sake, or go looking for what else the flaw reaches.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="n">02</span>
+        <div>
+          <h3 class="h3">Do not keep what you find</h3>
+          <p>If you encounter client data, stop immediately and tell us in the report. Do not download, retain, screenshot beyond what proves the point, or share it. Delete it once we confirm receipt.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="n">03</span>
+        <div>
+          <h3 class="h3">Leave nothing behind</h3>
+          <p>No persistence, no backdoors, no accounts, no uploaded files. If you created anything to prove the issue, list it so we can remove it.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="n">04</span>
+        <div>
+          <h3 class="h3">Give us ninety days</h3>
+          <p>Publish after ninety days, or sooner if we have fixed it and agreed. If we are moving too slowly, say so and we will either move faster or explain ourselves. We will not ask you to stay quiet indefinitely.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="n">05</span>
+        <div>
+          <h3 class="h3">No extortion</h3>
+          <p>Reports conditioned on payment, or accompanied by a deadline and a threat, are handled as extortion rather than disclosure. We do not run a paid bounty; see below.</p>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--leading)">
+      <div class="frame card">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="kicker" style="margin-bottom:0">Our side of it</span>
+        <ul class="list">
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>We will not pursue legal action, or support any pursued by others, against anyone who follows this policy in good faith</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>We will not report you to your employer, your university, or a regulator</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>We will tell you what we fixed and when, not just that it is closed</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--sev-ok)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span>Every report is reviewed by two of our engineers before we call it out of scope. Four eyes applies to reports about us, too</span></li>
+        </ul>
+        <p class="body" style="font-size:13px;margin-top:var(--leading)">If you are unsure whether something is permitted, ask first. A question costs you an email and costs us nothing.</p>
+      </div>
+      <div class="frame card">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="kicker" style="margin-bottom:0">On payment</span>
+        <p class="body" style="font-size:14px;margin:0">We do not operate a paid bug bounty, and we would rather say so plainly than imply one. What we do offer: public credit if you want it, a written account of the fix, and a straight reference for anyone who asks. Several researchers who reported to us are now people we call when we need a second opinion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steel">
+  <div class="steelin">
+    <span class="kicker">03 · Reporting</span>
+    <hr class="crule" />
+    <h2 class="h2">How to send it</h2>
+    <p class="body" style="max-width:64ch;margin-top:var(--leading);color:color-mix(in srgb,#f2f2f3 82%,transparent)">Encrypt anything containing a working exploit, a credential, or client data. For everything else, plain email to the same address is fine and we will not hold it against you.</p>
+    <div class="twocol" style="margin-top:calc(1.5*var(--leading))">
+      <div>
+        <div class="step" style="border-color:color-mix(in srgb,#f2f2f3 20%,transparent)">
+          <span class="n" style="color:var(--color-accent-300)">01</span>
+          <div>
+            <h3 class="h3">Email <a href="mailto:secure@4eyesforensics.com">secure@4eyesforensics.com</a></h3>
+            <p style="color:color-mix(in srgb,#f2f2f3 72%,transparent)">Subject line starting <span class="mono">DISCLOSURE</span> routes it straight to the duty engineer rather than the sales queue.</p>
+          </div>
+        </div>
+        <div class="step" style="border-color:color-mix(in srgb,#f2f2f3 20%,transparent)">
+          <span class="n" style="color:var(--color-accent-300)">02</span>
+          <div>
+            <h3 class="h3">Encrypt to our key</h3>
+            <p style="color:color-mix(in srgb,#f2f2f3 72%,transparent)">Verify the fingerprint against <a href="{% url 'security-txt' %}">/.well-known/security.txt</a> or by phone before first use. Never trust a fingerprint quoted in a document, an email signature, or on this page alone.</p>
+            <div class="keyline" style="background:color-mix(in srgb,#f2f2f3 10%,transparent);border-color:color-mix(in srgb,#f2f2f3 24%,transparent)">
+              <code>2C63 630E 8E0F 17E4 EFC2&nbsp; FAF2 8259 1CDE E182 3A7B</code>
+            </div>
+            <p style="color:color-mix(in srgb,#f2f2f3 60%,transparent);font-size:12.5px">ed25519 · key ID 0x82591CDEE1823A7B · created 2026-08-23 · expires 2028-08-22</p>
+            <div style="display:flex;gap:var(--space-2);margin-top:var(--half);flex-wrap:wrap">
+              <a class="btn btn-primary frame" href="{% static 'website/assets/pgp-key.asc' %}" download>
+                <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                Download public key (.asc)
+              </a>
+              <a class="btn btn-secondary" href="{% url 'security-txt' %}" style="color:var(--color-bg);border-color:color-mix(in srgb,#f2f2f3 30%,transparent)">Read security.txt</a>
+            </div>
+          </div>
+        </div>
+        <div class="step" style="border-color:color-mix(in srgb,#f2f2f3 20%,transparent)">
+          <span class="n" style="color:var(--color-accent-300)">03</span>
+          <div>
+            <h3 class="h3">If it is already being exploited</h3>
+            <p style="color:color-mix(in srgb,#f2f2f3 72%,transparent)">Do not wait for email. Call the incident line, <a href="tel:+18765550142">+1 876 555 0142</a>, answered in person day or night. Say it is a disclosure and you will reach an engineer, not a receptionist.</p>
+          </div>
+        </div>
+      </div>
+      <div class="frame card" style="border-color:color-mix(in srgb,#f2f2f3 24%,transparent)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <span class="kicker" style="margin-bottom:0">What makes a report easy to act on</span>
+        <ul class="list">
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:color-mix(in srgb,#f2f2f3 84%,transparent)">The affected URL, host or endpoint, exactly</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:color-mix(in srgb,#f2f2f3 84%,transparent)">Steps to reproduce, in order, that we can follow without guessing</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:color-mix(in srgb,#f2f2f3 84%,transparent)">The request and response that prove it, redacted of any real data</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:color-mix(in srgb,#f2f2f3 84%,transparent)">What an attacker gains, in one sentence. This drives severity more than anything else</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:color-mix(in srgb,#f2f2f3 84%,transparent)">Dates and times you tested, so we can match it to our logs</span></li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-300)" stroke-width="1.5"><path d="M20 6L9 17l-5-5"></path></svg><span style="color:color-mix(in srgb,#f2f2f3 84%,transparent)">How you want to be credited, or that you would rather not be</span></li>
+        </ul>
+        <p class="body" style="font-size:13px;margin-top:var(--leading);color:color-mix(in srgb,#f2f2f3 66%,transparent)">No template to fill in. A clear paragraph and a reproduction beats a form every time, and we would rather have the report roughly written than not at all.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sect">
+  <span class="kicker">04 · Credits</span>
+  <hr class="crule" />
+  <h2 class="h2">People who told us first</h2>
+  <p class="body" style="max-width:64ch;margin-top:var(--leading)">Named with their permission, in the order they reported. If you would rather not appear here, say so and you will not.</p>
+  <div class="frame card" style="margin-top:calc(1.5*var(--leading));display:grid;place-items:center;min-height:150px">
+    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    <p class="body" style="margin:0;text-align:center;max-width:52ch;color:color-mix(in srgb,var(--color-text) 62%,transparent)">Nobody yet. This is a real list and it starts empty, rather than being seeded with names to look established.<br /><a href="mailto:secure@4eyesforensics.com">Be the first.</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="footrow">
+    <span>© 2026 4Eyes Forensics. All rights reserved. · <a href="{% url 'home' %}">Back to the site</a> · <a href="{% url 'security-txt' %}">security.txt</a></span>
+    <span>Policy version 1.0 · 23 August 2026 · Next review August 2027</span>
+  </div>
+</footer>
+{% endblock %}
