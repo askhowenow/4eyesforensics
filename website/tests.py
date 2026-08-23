@@ -21,3 +21,7 @@ class WebsiteTests(TestCase):
         response = self.client.get("/api/health/")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"status": "ok"})
+
+    def test_public_security_files(self):
+        self.assertEqual(self.client.get("/.well-known/security.txt").status_code, 200)
+        self.assertEqual(self.client.get("/pgp-key.asc").status_code, 200)

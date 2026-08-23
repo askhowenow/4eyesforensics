@@ -22,3 +22,8 @@ def health(request):
 def security_txt(request):
     path = settings.BASE_DIR / "website" / "static" / "website" / "assets" / ".well-known" / "security.txt"
     return HttpResponse(path.read_text(), content_type="text/plain; charset=utf-8")
+
+
+def pgp_key(request):
+    path = settings.BASE_DIR / "website" / "static" / "website" / "assets" / "pgp-key.asc"
+    return HttpResponse(path.read_text(), content_type="application/pgp-keys; charset=utf-8")
