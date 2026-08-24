@@ -26,7 +26,7 @@ class WebsiteTests(TestCase):
     def test_interactive_script_matches_rendered_controls(self):
         response = self.client.get("/")
         self.assertNotContains(response, 'id="motifmode"')
-        self.assertContains(response, 'src="/static/website/js/main.js"')
+        self.assertContains(response, 'src="/static/website/js/main.js?v=554e790"')
         script = Path(settings.BASE_DIR, "website", "static", "website", "js", "main.js").read_text()
         self.assertNotIn("#motifmode", script)
 
