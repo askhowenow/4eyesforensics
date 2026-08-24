@@ -14,6 +14,13 @@ class WebsiteTests(TestCase):
         self.assertContains(response, "Rejuvonix")
         self.assertContains(response, "Premojin")
         self.assertContains(response, "Quantyfied")
+        self.assertContains(response, "Telehealth Company · CEO")
+        self.assertContains(response, "Supplement &amp; Wellness Platform · COO")
+        self.assertContains(response, "Solutions Development Company · Managing Director")
+        self.assertContains(response, "ISO/IEC")
+        self.assertContains(response, "NIST")
+        self.assertContains(response, "id=\"quoteback\"")
+        self.assertContains(response, "id=\"bits\"")
         self.assertContains(response, "1 (876) 454-6883")
         self.assertContains(response, "tel:+18764546883")
         self.assertContains(response, 'id="scope"')
@@ -22,11 +29,13 @@ class WebsiteTests(TestCase):
         self.assertNotContains(response, "__bundler")
         self.assertNotContains(response, "DecompressionStream")
         self.assertNotContains(response, "URL.createObjectURL")
+        for placeholder in ("Kesterline", "Northbay", "northbay-clinics", "Portway", "Halden &amp; Roe", "Grebe Marine", "Ashcroft"):
+            self.assertNotContains(response, placeholder)
 
     def test_interactive_script_matches_rendered_controls(self):
         response = self.client.get("/")
         self.assertNotContains(response, 'id="motifmode"')
-        self.assertContains(response, 'src="/static/website/js/main.js?v=554e790"')
+        self.assertContains(response, 'src="/static/website/js/main.js?v=v3"')
         script = Path(settings.BASE_DIR, "website", "static", "website", "js", "main.js").read_text()
         self.assertNotIn("#motifmode", script)
 

@@ -20,15 +20,61 @@
       if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 76, behavior: "smooth" });
     });
   });
-  $$("[data-quote]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      var target = document.getElementById("scope");
-      if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 76, behavior: "smooth" });
-      window.setTimeout(function () {
-        var start = document.querySelector("[data-scope-open]");
-        if (start) start.click();
-      }, 300);
+  /* quote modal: collect a reachable contact, then confirm with a checked list */
+  var quoteBack = $("#quoteback");
+  function resetQuote() {
+    quoteBack.classList.remove("sent");
+    ["#q-co", "#q-name", "#q-mail", "#q-tel", "#q-note"].forEach(function (s) {
+      var el = $(s); el.value = ""; el.classList.remove("bad");
+      if (el.closest(".field")) el.closest(".field").classList.remove("bad");
     });
+    var w = $("#quotewarn");
+    w.classList.remove("bad");
+    w.textContent = "Reply within one business day · we never sell or share this";
+  }
+  function openQuote(ctx) {
+    resetQuote();
+    var box = $("#quotectx");
+    if (ctx) { $("#quotectx-val").textContent = ctx; box.hidden = false; } else { box.hidden = true; }
+    quoteBack.classList.add("open");
+    setTimeout(function () { $("#q-co").focus(); }, 60);
+  }
+  function closeQuote() { quoteBack.classList.remove("open"); }
+  function validQuote() {
+    var need = [["#q-co", "text"], ["#q-name", "text"], ["#q-mail", "email"], ["#q-tel", "tel"]];
+    var bad = [];
+    need.forEach(function (pair) {
+      var el = $(pair[0]), v = (el.value || "").trim(), ok;
+      if (pair[1] === "email") ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+      else if (pair[1] === "tel") ok = (v.replace(/[^0-9]/g, "").length >= 7);
+      else ok = v.length > 1;
+      el.classList.toggle("bad", !ok);
+      if (el.closest(".field")) el.closest(".field").classList.toggle("bad", !ok);
+      if (!ok) bad.push(el);
+    });
+    var w = $("#quotewarn");
+    if (bad.length) {
+      w.classList.add("bad");
+      w.textContent = "We need a company, a name, a working email and a number that reaches you";
+      bad[0].focus();
+      return false;
+    }
+    w.classList.remove("bad");
+    return true;
+  }
+  $$("[data-quote]").forEach(function (b) {
+    b.addEventListener("click", function () { openQuote(b.getAttribute("data-quote") || ""); });
+  });
+  $$("[data-quote-close]").forEach(function (b) { b.addEventListener("click", closeQuote); });
+  $$("[data-quote-reset]").forEach(function (b) { b.addEventListener("click", function () { resetQuote(); $("#q-co").focus(); }); });
+  quoteBack.addEventListener("click", function (e) { if (e.target === quoteBack) closeQuote(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeQuote(); });
+  $("[data-quote-send]").addEventListener("click", function () {
+    if (!validQuote()) return;
+    $("#quoteref").textContent = "4EF-Q-" + String(Math.floor(1000 + Math.random() * 8999));
+    $("#quotedone-who").textContent = "Sent over TLS to the duty engineer, who will reply to " + $("#q-mail").value.trim() + ".";
+    quoteBack.classList.add("sent");
+    flash("Quote request sent. A scoped, fixed price comes back within one business day");
   });
   $$("[data-pack]").forEach(function (b) {
     b.addEventListener("click", function () { closePack(); flash("Sample pack on its way, five documents, encrypted if you asked"); });
@@ -43,7 +89,8 @@
   }
   try {
     var savedBook = localStorage.getItem(BOOK_KEY);
-    if (savedBook) paintBook(Number(savedBook));
+    if (savedBook && Date.now() - Number(savedBook) < 864e5) paintBook(Number(savedBook));
+    else if (savedBook) localStorage.removeItem(BOOK_KEY);
   } catch (e) {}
   $$("[data-book]").forEach(function (b) {
     b.addEventListener("click", function () {
@@ -223,6 +270,11 @@
     else if (motionOn) { rafId = requestAnimationFrame(frame); }
   });
 
+  /* steel bands: photographic backdrop */
+  var bands = $$(".steel"), videos = $$(".steelvideo video");
+  bands.forEach(function (b) { b.setAttribute("data-bg", "photo"); });
+  setMotion(false);
+  videos.forEach(function (v) { v.pause(); });
   /* brand mark: hover plays the animation, click opens it large */
   var logoBack = $("#logoback"), logoStage = $(".logostage"), GIF = (document.getElementById("gifsrc") || {}).src || "/static/website/assets/4eyes-animation-loop.gif";
 
@@ -398,6 +450,22 @@
     $$(".statnum, .hero .meta b, .storystat b, .bospec div b").forEach(function (el) { io.observe(el); });
   }
 
+  document.body.setAttribute("data-paper", "plain");
+
+  /* empty photo slots get a lighter wash + visible drop note */
+  function slotState() {
+    $$(".steelphoto").forEach(function (w) {
+      var s = w.querySelector("image-slot");
+      var img = s && s.shadowRoot && s.shadowRoot.querySelector("img");
+      var filled = !!(img && img.getAttribute("src"));
+      w.classList.toggle("empty", !filled);
+      var note = w.querySelector(".dropnote");
+      if (note) note.style.display = filled ? "none" : "block";
+    });
+  }
+  slotState();
+  setInterval(slotState, 1200);
+
   /* service breakouts */
   var SVC = {
     pentest: { theme: "#7d3b41", tag: "Service 01 · security", title: "Penetration testing", spec: [["5–15 days","Typical engagement"],["Free","Retest until closed"],["AI + human","How we test"]],
@@ -425,7 +493,7 @@
       scope: ["CIS benchmark or STIG assessment of the current fleet","Kernel and sysctl, SSH, PAM, sudo and file integrity","SELinux or AppArmor moved from permissive to enforcing","Patch policy, package pinning and unattended upgrades","Container and Kubernetes node baselines where you run them","Custom scripting: onboarding, log shipping, backup pre and post jobs, evidence collection"],
       deliver: ["A scored benchmark report, before and after, per host class","Bash, Python and Ansible written for your fleet, yours to keep","Documented exceptions with the business reason recorded","Scheduled drift checks that mail or ticket when a host changes"],
       runs: ["Assess first, on a copy, so nothing in production moves blind","Changes staged, reviewed by a second engineer, then applied","Rollback written before each change, not after","Re-benchmarked quarterly, or on every image rebuild"] },
-    dfir: { theme: "#3f4a7a", tag: "Service 02 · forensics", title: "Digital forensics & incident response", spec: [["< 4 min","Incident line answer"],["Two examiners","On every finding"],["Court-ready","Report standard"]],
+    dfir: { theme: "#3f4a7a", tag: "Service 02 · forensics", title: "Digital forensics & incident response", spec: [["15 min","Incident line answer"],["Two examiners","On every finding"],["Court-ready","Report standard"]],
       lede: "The one service you hope never to buy. We contain first, preserve second and explain third: an account of what was accessed, what left, and what did not, built from evidence handled so that an insurer, a regulator or opposing counsel cannot pick it apart.",
       scope: ["Containment and eradication alongside your team","Forensic imaging with hashes and chain of custody","Memory, disk, cloud audit log and identity timeline analysis","Scoping what was exfiltrated versus merely accessed"],
       deliver: ["A defensible timeline of the intrusion, hour by hour","Indicators of compromise handed to whoever runs your monitoring","Findings written for insurers, regulators and counsel","Notification support for state breach laws, HIPAA and the Jamaica DPA"],
@@ -452,6 +520,7 @@
     boCards.forEach(function (c) { c.setAttribute("aria-expanded", c === card ? "true" : "false"); });
     $("#bo-tag").textContent = d.tag;
     $("#bo-title").textContent = d.title;
+    $("#bo-quote").setAttribute("data-quote", d.title);
     $("#bo-lede").textContent = d.lede;
     fillList("#bo-scope", d.scope);
     fillList("#bo-deliver", d.deliver);
@@ -527,7 +596,11 @@
   }
   try {
     var saved = localStorage.getItem(SCOPE_KEY);
-    if (saved) paintScope(JSON.parse(saved));
+    if (saved) {
+      var rec = JSON.parse(saved);
+      if (Date.now() - rec.at < 864e5) paintScope(rec);
+      else localStorage.removeItem(SCOPE_KEY);
+    }
   } catch (e) {}
   function openScope(focus) {
     $("#scopegate").classList.add("gone");
