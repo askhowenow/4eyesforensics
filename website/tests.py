@@ -1,3 +1,6 @@
+from pathlib import Path
+
+from django.conf import settings
 from django.test import TestCase
 
 
@@ -19,6 +22,13 @@ class WebsiteTests(TestCase):
         self.assertNotContains(response, "__bundler")
         self.assertNotContains(response, "DecompressionStream")
         self.assertNotContains(response, "URL.createObjectURL")
+
+    def test_interactive_script_matches_rendered_controls(self):
+        response = self.client.get("/")
+        self.assertNotContains(response, 'id="motifmode"')
+        self.assertContains(response, 'src="/static/website/js/main.js"')
+        script = Path(settings.BASE_DIR, "website", "static", "website", "js", "main.js").read_text()
+        self.assertNotIn("#motifmode", script)
 
     def test_responsible_disclosure_page(self):
         response = self.client.get("/responsible-disclosure/")

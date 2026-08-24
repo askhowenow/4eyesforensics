@@ -316,7 +316,7 @@
   });
 
   /* ambient motif: strands of ones and zeros drifting across the page */
-  var bitsC = $("#bits"), motifSel = $("#motifmode");
+  var bitsC = $("#bits");
   var motif = "bits", bitsRaf = 0, bits = [], bctx = bitsC.getContext("2d");
   var CH = 12, ROWH = 40;
   function sizeBits() {
@@ -371,11 +371,7 @@
     if (m === "bits" && !reduce) { sizeBits(); bitsRaf = requestAnimationFrame(drawBits); }
     if (persist) { try { localStorage.setItem("bastion-motif", m); } catch (e) {} }
   }
-  var sm = null;
-  try { sm = localStorage.getItem("bastion-motif"); } catch (e) {}
-  motifSel.value = (sm === "off") ? "off" : "bits";
-  setMotif(motifSel.value, false);
-  motifSel.addEventListener("change", function () { setMotif(motifSel.value, true); });
+  setMotif("bits", false);
   window.addEventListener("resize", function () { if (motif === "bits") sizeBits(); });
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) cancelAnimationFrame(bitsRaf);
